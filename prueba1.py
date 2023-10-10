@@ -1,5 +1,7 @@
 from tkinter import *
+from tkinter import messagebox
 import menu_administrador
+import validacion_profe as valid_p
 import archivos as valid
 #import validacion_profe as profe_v
 #configuracion  del frame principal
@@ -37,7 +39,7 @@ def menu():
     #crear entradas para nombre y contraseña
     entrada = Entry(raiz,textvariable=nombre)#nombre
     entrada.place(x = 110, y = 140)
-    entrada = Entry(raiz,textvariable=contraseña)#contraseña
+    entrada = Entry(raiz,textvariable=contraseña,show='*')#contraseña
     entrada.place(x = 110, y = 160)
 
 
@@ -53,9 +55,12 @@ def menu():
                #llama a la funcion verificar del modulo valid 
                 
                inicio()
+           
+               
 
 
     def inicio():
+        
         administracion()
  
         
@@ -150,24 +155,67 @@ def registrarsef(): #CREA EL MUNU DE RISGISTRO
     boton.place(x= 180, y= 350)
 
 def maestrof():
-    #profe_v.validar_profesor()
-    print("hola prueba")
+    valid_p.Registro()
+    
 
 def administracion():
     pantalla4 = Toplevel()
     pantalla4.geometry("400x400")
     pantalla4.title("Administracion ")
     
+    def  regisMaestros():#esta parte sera para crear el entorno al registro de maestro
+        pantalla4_registro = Toplevel()
+        pantalla4_registro.geometry("300x300")
+        pantalla4_registro.title("registro de Maestros")
+        pantalla4_registro.resizable(0,0)
 
+        nombre_v = StringVar()
+        apellido_v = StringVar()
+        dpi_v = StringVar()
+        Contra_v = StringVar()
+        contra2_v = StringVar()
+
+        #crear las label y entradas para el registro de maestros
+        nombre = Label(pantalla4_registro,text="Nombre")
+        nombre.place(x= 30, y= 40)
+        nombre_e = Entry(pantalla4_registro,textvariable= nombre_v)
+        nombre_e.place(x= 100, y= 40)
+        apellido = Label(pantalla4_registro,text="Apellido")
+        apellido.place(x= 30, y= 70)
+        apellido_e = Entry(pantalla4_registro,textvariable= apellido_v)
+        apellido_e.place(x= 100, y= 70)
+        dpi = Label(pantalla4_registro,text="DPI")
+        dpi.place(x= 30, y= 100)
+        dpi_e = Entry(pantalla4_registro,textvariable= dpi_v)
+        dpi_e.place(x= 100, y= 100)
+        contra = Label(pantalla4_registro,text="Contraseña")
+        contra.place(x= 30, y= 130)
+        contra_e = Entry(pantalla4_registro,textvariable= Contra_v,show='*')
+        contra_e.place(x= 100, y= 130)
+        contra2 = Label(pantalla4_registro,text="confirme ")
+        contra2.place(x= 30, y= 160)
+        contra_e = Entry(pantalla4_registro,textvariable= contra2_v,show='*')
+        contra_e.place(x= 100, y= 160)
+        #funcion  para registrar en el modulo valid(archivos)con el metodo registromaestro()
+        def registrar_M():
+
+            valid.RegistroMaestros(nombre_v.get(),apellido_v.get(),dpi_v.get(),Contra_v.get(),contra2_v.get())
+
+        confirmar = Button(pantalla4_registro,text="Confirmar",command=registrar_M)
+        confirmar.place(x= 100 , y = 180  )
 
     def llamar():
         menu_administrador.new_Curso("hola")
         pantalla4.iconify
 
-        
-    
+
+    #boton registrar nuevo maestro
+    registrar = Button(pantalla4,text= "Registrar Mestros",command= regisMaestros)
+    registrar.place(x=180, y= 40)    
+
+    #boton crear nuevo curso
     crear_curso = Button(pantalla4, text= "crear nuevo curso", command= llamar)   
-    crear_curso.pack()
+    crear_curso.place(x = 30 , y = 40)
     
 
 
@@ -176,7 +224,7 @@ def administracion():
 
        
 
-menu()    
+menu() # esta empieza la funcion menu   
 
 
 
