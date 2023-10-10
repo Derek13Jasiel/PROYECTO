@@ -55,6 +55,9 @@ def menu():
                #llama a la funcion verificar del modulo valid 
                 
                inicio()
+           elif (valid.verificar(nombre.get(),contraseña.get()) == 0):
+               messagebox.showerror("hubo un problema","usuario o contraseña incorrecta")
+                  
            
                
 

@@ -1,9 +1,11 @@
 
 # modulo valid
 cantidad_estudiantes = 6
-cantidad_profesores = 3
-valor3 = "h"
-valor4 = "h"
+cantidad_profesores = 2
+lista = ["",""]
+lista2 = ["",""]
+
+
 def verificar(usuario,contra):
     
 
@@ -42,56 +44,60 @@ def valid_registro(nombre,apellido,dpi,celular,usuario,correo,fecha,contra,contr
    f.close()
 
 
+
+
+
+
 def verificarPro(usuariop,contrap):
-    
+   f2 = open("texto2.txt")
 
-   f2 = open("texto2.txt","r")  
+
    for n in range(cantidad_profesores):
+       datos = f2.readline()
+       
+       sep = datos.split('-')
 
-     separa2 = f2.readline()        
-     hola2 = separa2.split('-')
-
-     print(hola2[0]+hola2[1])
-     
-
+       print(sep[0])
+       print(sep[1])
+       if sep[0 ]== usuariop and sep[1]== contrap:
+          valor2= sep[0]      
+          valor3= sep[1]
+         
  
-   if  usuariop == valor3 and contrap == valor4 : # es la validacion de la base de datos,verifica usuario y contraseña
-      print ("si se puedo")
+   f2.close()     
+   if valor2 == usuariop and valor3 == contrap:
       return 1
-
    else:
+      return 0
+   
 
-      print("valores finales")
-    
-     
-      
-   f2.close()
-   return 0   
+
+
 
    
-"""def verificarPro(nombrep,contrap):
+   
+   
+            
 
-   f2 = open("texto2.txt","r")
-   for n in range(cantidad_profesores):
 
-     separa2 = f2.readline()        
-     hola2 = separa2.split('-')
-     if valor1 == hola2[0] and valor2 == hola2[1]:
-         valor1 = hola2[0]
-         valor2 = hola2[1]
+
+
 
    
-   if nombrep == valor1 and contrap == valor2:
-       return 1
-   else:
-        return 0
-   f2.close() """
+
 
 
 def RegistroMaestros(nombre,apellido,dpi,contra,contra2): #funcion para registrar los datos ingresados en el apartado de registro
       f2 = open("texto2.txt","a")
       f2.write("\n"+nombre+"-"+apellido+"-"+dpi+"-"+contra+"-"+contra2)
       f2.close()
+
+def RegistroCurso(curso,codigo,costo,horario,cupo,catedratico): #funcion para registrar los cursos desde el modulo administrador
+      f3 = open("texto3.txt","a")
+      f3.write("\n"+curso+"-"+costo+"-"+horario+"-"+cupo+"-"+catedratico)
+      f3.close()
+
+
 
    
 
