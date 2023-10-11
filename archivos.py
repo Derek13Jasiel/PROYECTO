@@ -1,11 +1,31 @@
+from cryptography.fernet import Fernet
 
 # modulo valid
 cantidad_estudiantes = 6
 cantidad_profesores = 2
-lista = ["",""]
-lista2 = ["",""]
+#---------funcion para encriptar y desencriptar -----------------#
+def codificacion():
+#-------crear clave y convertir el mensaje a bytes    
+    clave = Fernet.generate_key()
+    mensaje = "hola".encode()#pasa de str a bytes para encoding
+    f = Fernet(clave)#atribuir a la variable f las  propiedades del modulo Fernet#
+#----------ENCRIPTAR-----------------#    
+    encriptado = f.encrypt(mensaje)
+    print(encriptado)
+    print("hola mundo")
+#-----------DESENCRIPTAR--------------#
+    desencriptado = f.decrypt(encriptado)
+    print(desencriptado)
+    encoding = 'utf-8' #tipo de encoding
+    paso = str(desencriptado, encoding)#pasa de bytes a str
+    
 
+    if paso == "hola":
+        print("avanzamos")
+    else:
+        print("no se puedo")
 
+#--------------verificar usuario----------------#
 def verificar(usuario,contra):
     
 
@@ -39,16 +59,18 @@ def verificar(usuario,contra):
 
 
 def valid_registro(nombre,apellido,dpi,celular,usuario,correo,fecha,contra,contra2): #funcion para registrar los datos ingresados en el apartado de registro
-   f = open("texto.txt","a")
-   f.write("\n"+nombre+"-"+apellido+"-"+dpi+"-"+celular+"-"+usuario+"-"+correo+"-"+fecha+"-"+contra+"-"+contra2)
-   f.close()
+   if(contra == contra2):
+  
+      f = open("texto.txt","a")
+      f.write(nombre+"-"+apellido+"-"+dpi+"-"+celular+"-"+usuario+"-"+correo+"-"+fecha+"-"+contra+"\n")
+      f.close()
 
 
 
 
 
 
-def verificarPro(usuariop,contrap):
+def verificarPro(usuariop,contrap): #funcion para verificar a los maestro en el login para catedraticos
    f2 = open("texto2.txt")
 
 
@@ -57,8 +79,8 @@ def verificarPro(usuariop,contrap):
        
        sep = datos.split('-')
 
-       print(sep[0])
-       print(sep[1])
+       #print(sep[0])
+       #print(sep[1])
        if sep[0 ]== usuariop and sep[1]== contrap:
           valor2= sep[0]      
           valor3= sep[1]
@@ -69,20 +91,6 @@ def verificarPro(usuariop,contrap):
       return 1
    else:
       return 0
-   
-
-
-
-
-   
-   
-   
-            
-
-
-
-
-
    
 
 

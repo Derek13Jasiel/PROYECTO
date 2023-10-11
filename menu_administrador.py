@@ -1,4 +1,5 @@
 from tkinter import *
+from PIL import Image, ImageTk
 from archivos import RegistroCurso
 
 
@@ -9,18 +10,21 @@ valor4 = ""
 valor5 = ""
 valor6 = ""
 
-def new_Curso(hola ): # codigo para crear un nuevo curso
+def new_Curso(): # codigo para crear un nuevo curso
+        
+
+        curso = Tk()
+        curso.geometry("390x350")
+        curso.title("crear nuevo curso")
+        curso.resizable(0,0)
+        curso.iconbitmap("logo.ico")
+
         nombref = StringVar()
         codigof = StringVar()
         costof =  StringVar()
         horariof = StringVar()
         cupof = StringVar()
         profe = StringVar()
-
-        curso = Tk()
-        curso.geometry("390x350")
-        curso.title(hola)
-        curso.iconbitmap("logo.ico")
 
         n_curso= Label(curso, text=  "Nombre del Curso")
         n_curso.place(x = 40 , y = 60)
@@ -68,7 +72,21 @@ def new_Curso(hola ): # codigo para crear un nuevo curso
         confirmar.place(x= 100, y = 250)
 
 def  nuevo_Curso(nombre,codigo,costo,horario,cupo,catedratico):
-        print("hola")      
+
+    menu = Tk()
+    menu.title(nombre)
+    menu.iconbitmap("usac.ico")
+    menu.state('zoomed')#zoomed te deja centrado y pantalla completa
+    
+    img= (Image.open("bienbenido.jpg"))
+    imagen_reducida= img.resize((400,205))
+    nueva_imagen= ImageTk.PhotoImage(imagen_reducida)
+    mostrar = Label(menu, image= nueva_imagen)
+    mostrar.pack()
+
+    
+   
+    menu.mainloop()  
 
         
 
