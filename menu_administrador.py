@@ -64,14 +64,14 @@ def new_Curso(): # codigo para crear un nuevo curso
                 valor4 = n_Entradah # horio del curso
                 valor5 = n_Entradacc #cupo del curso
                 valor6 = n_Entradapc #nommbre del catedratico asignada al curso
-                nuevo_Curso(valor1,valor2,valor3,valor4,valor5,valor6)        
+                #nuevo_Curso(valor1,valor2,valor3,valor4,valor5,valor6)        
                 
 
                 
         confirmar = Button(curso, text= "Confirmar nuevo curso", command= confirmarCurso)
         confirmar.place(x= 100, y = 250)
 
-def  nuevo_Curso(nombre,codigo,costo,horario,cupo,catedratico):
+"""ef  nuevo_Curso(nombre,codigo,costo,horario,cupo,catedratico):
 
     menu = Tk()
     menu.title(nombre)
@@ -86,7 +86,7 @@ def  nuevo_Curso(nombre,codigo,costo,horario,cupo,catedratico):
 
     
    
-    menu.mainloop()  
+    menu.mainloop()  """
 
         
 

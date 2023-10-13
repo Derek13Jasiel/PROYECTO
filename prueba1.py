@@ -4,6 +4,7 @@ from PIL import Image, ImageTk
 import menu_administrador
 import validacion_profe as valid_p
 import archivos as valid
+from menu_principal import Menu_principal
 #import validacion_profe as profe_v
 #configuracion  del frame principal
 
@@ -61,7 +62,7 @@ def menu():
                #llama a la funcion verificar del modulo valid 
                 
                inicio()
-           elif (valid.verificar(nombre.get(),contraseña.get()) == 0):
+           elif (valid.verificar(nombre.get(),contraseña.get()) != 1):
                messagebox.showerror("hubo un problema","usuario o contraseña incorrecta")
                   
            
@@ -69,9 +70,9 @@ def menu():
 
 
     def inicio():
-        raiz.destroy()
+        raiz.destroy()#importante destruir los widgets antes de pasar a otro 
         
-        administracion()
+        Menu_principal()#llama a la funcion menu principal desde el modulo de menu principal
  
     
     #crear botones 
@@ -147,12 +148,12 @@ def registrarsef(): #CREA EL MUNU DE RISGISTRO
     #codigo para la contraseña y para confirmarla
     contra = Label(pantalla2, text="Contraseña ",font=("curier 10"))
     contra.place(x=50, y= 280)
-    contra= Entry(pantalla2,textvariable=vcontra) 
+    contra= Entry(pantalla2,textvariable=vcontra,show='*') 
     contra.place(x=180 , y = 280)
 
     contra2 = Label(pantalla2, text="Confirmar contraseña",font=("curier 10"))
     contra2.place(x=50, y= 310)
-    contra2= Entry(pantalla2,textvariable=vcontra2) 
+    contra2= Entry(pantalla2,textvariable=vcontra2,show='*') 
     contra2.place(x=180 , y = 310)
 
     def validar():#metodo llama a validar el registro 
@@ -164,15 +165,26 @@ def registrarsef(): #CREA EL MUNU DE RISGISTRO
     boton.place(x= 180, y= 350)
 
 def maestrof():
+    raiz.destroy()
     valid_p.Registro()
     
-
+    
+#------------------------Administrador---------------------------------------------------------#
 def administracion():
     raiz.destroy()
     pantalla4 = Tk()
     pantalla4.geometry("400x400")
     pantalla4.title("Administracion ")
     pantalla4.iconbitmap("logo.ico")
+    pantalla4.resizable(0,0)
+    global va 
+    va = 0
+    
+
+    entorno = LabelFrame(pantalla4,text="Opciones de Administrador",width="295",height="300", fg="black")
+    entorno.place(relx=0.1,rely=0.1)
+    visualizacion = Label(entorno,bg="blue",text="hola mundo")
+    visualizacion.place(relx=0.01, rely=0.5)
     
     
     
@@ -224,24 +236,42 @@ def administracion():
     def llamar():
         pantalla4.destroy()
         menu_administrador.new_Curso()
-        
-        
 
+    def  MaestrosRegistrados():
+        print("print registrar mestros")
+
+    def  verCursos():
+        hola = StringVar()
+        print(hola)
+        visualizacion.config(textvariable=hola)
+
+        
+    
+
+        
+        
+#--------------------creacion de botones para el modo administrador----------------------------------------#
 
     #boton registrar nuevo maestro
-    registrar = Button(pantalla4,text= "Registrar Mestros",command= regisMaestros)
-    registrar.place(x=180, y= 40)    
+    registrar = Button(entorno,text= "Registrar Maestros",command= regisMaestros,width="32")
+    registrar.place(relx=0.1, rely=0.1)    
 
     #boton crear nuevo curso
-    crear_curso = Button(pantalla4, text= "crear nuevo curso", command= llamar)   
-    crear_curso.place(x = 30 , y = 40)
+    crear_curso = Button(entorno, text= "crear nuevo curso", command= llamar,width="32")   
+    crear_curso.place(relx=0.1 , rely=0.2)
+
+    #boton para ver curso creados
+    verC = Button(entorno, text= "Cursos creados", command= verCursos,width="32")   
+    verC.place(relx=0.1 , rely=0.3)
+
+    #boton para ver Maestros Registrados
+    VerP = Button(entorno, text= "Maestros registrados", command= MaestrosRegistrados,width="32")   
+    VerP.place(relx=0.1 , rely=0.4)
     
 
 
             
     
-
-       
 
 menu() # esta empieza la funcion menu   
 
