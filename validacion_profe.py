@@ -44,31 +44,31 @@ def Registro():
 
 def Menu_principal(usuario,registro):#
     #------mandamos a ver los curso y si los el catedratico esta asigna
-    resultado = ["","","","","","","","","","","","","","","","","","","","","",""]   
-    #verCurso(dpi)
-    #print(usuario)
-
+  registro
+  with open("texto3.txt","r") as f:
+    a = len(f.readlines())
     
-    f2 = open("texto3.txt","r",encoding='utf-8')#obtener las clases
-    
-    b = 0
-    
-      
-    for n in range(4):
-     lector = f2.readline()
+    f.close()
+    with open("texto3.txt","r")as f2:
+     resultado= []
+     for n in range(a):
+       palabra = f2.readline()
+       sep = palabra.split('-')
+       print(sep[0])
+       print(sep[5])
 
-     sep = lector.split('-')
-
-     if sep[5]== usuario:
-        print(sep[5])
-        print(sep[0])
-        
-        resultado[b]= sep[0]
-        b = b + 1
+       print(type(sep[0]))
+       if (usuario and sep[5]):#parte a resolver
+         resultado.append(sep[0])
+         print(n+1)
+                
     f2.close()
 
+    
+    
 
-    Menu_Profesores()
+
+    Menu_Profesores(resultado)
 
 
     #------------------------#

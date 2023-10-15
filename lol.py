@@ -1,3 +1,105 @@
+from tkinter import *
+from tkinter import filedialog
+
+raiz = Tk()
+raiz.geometry("350x400")
+global mostrar
+#--------------abre los archivos para saber los cursos disponibles(archivo:texto3.txt)-------#
+
+with open("texto3.txt","r") as f:
+    a = len(f.readlines())
+    
+    f.close()
+    with open("texto3.txt","r")as f2:
+     resultado= []
+     for n in range(a):
+       palabra = f2.readline()
+       sep = palabra.split('-')
+       resultado.append(sep[0])       
+         
+f2.close()
+#------------------------------funcion Accion---------------
+def accion():
+    
+    
+    #--------seleccionado el curso mostrar datos------
+    with open("texto3.txt","r") as f:
+      a = len(f.readlines())
+    
+    f.close()
+    with open("texto3.txt","r")as f2:
+     for n in range(a):
+       palabra2 = f2.readline()
+       sep2 = palabra2.split('-')
+       info1_v = Label(mostrar,textvariable=valor)
+       info1_v.place(x= 50,y=15)
+
+       if (a == sep2[0]):
+         info2_v = Label(mostrar,text="hola")
+         info2_v.place(x= 50,y=35)
+
+             
+         
+f2.close()
+
+
+    #-------------------------------------------------
+valor = StringVar()
+
+mostrar = LabelFrame(text="Informacion del curso",height="200",width="260")
+mostrar.place(x=40,y= 130)
+info1 = Label(mostrar,text="clase")
+info1.place(x= 15,y=15)
+
+opcion_curso = Label(raiz,text="Seleccione un Curso")
+opcion_curso.place(x=30,y=30)
+
+menu = OptionMenu(raiz,valor, *resultado,command=accion)
+menu.config(height="2",width="15")
+menu.place(x=150, y=30)
+
+
+
+raiz.mainloop()
+
+
+
+ #----------esta parte si funciona ------------""#" 
+"""with open("texto3.txt","r") as f:
+    a = len(f.readlines())
+    
+    f.close()
+    with open("texto3.txt","r")as f2:
+     resultado= []
+     for n in range(a):
+       palabra = f2.readline()
+       sep = palabra.split('-')
+       print(sep[0])
+       print(sep[5])
+
+       print(type(sep[0]))
+       if ("Julio Alberto" == sep[5]):#parte a resolver
+         resultado.append(sep[0])
+         print(n+1)
+         
+
+print(resultado)         
+         
+    
+
+
+f2.close"""
+
+
+#------------para abrir un archivo
+"""raiz = Tk()
+def abrir():
+    archivo = filedialog.askopenfilename(title="abrir",initialdir="C:/")
+
+boton = Button(raiz,text="abrir",command=abrir) 
+boton.pack()
+raiz.mainloop()"""""
+############-----------------------#  
 """a = "2209"
 b = 0
 x = 0

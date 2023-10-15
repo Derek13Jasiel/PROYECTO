@@ -1,24 +1,27 @@
 
 
 # modulo valid
-cantidad_estudiantes = 4
+
 cantidad_profesores = 4
 n_cursos = 4
 
 
 #--------------verificar usuario----------------#text.txt
 def verificar(usuario,contra):
+   with open("texto.txt","r") as f:
+    a = len(f.readlines())
     
+   f.close()    
 
    f = open("texto.txt","r",encoding="utf-8")  
    valor2 = ""
    valor3 = ""
-   for n in range(cantidad_estudiantes):
+   for n in range(a):
 
      separa = f.readline()        
      hola = separa.split('-')
      print(hola[4]+"---"+hola[7])
-     if (hola[7] == contra  or hola[4] == usuario):
+     if (hola[7] == contra  and hola[4].strip() == usuario):
          print("valor2 = "+valor2+"----------valor3 = "+valor3)
          return 1
    f.close() 
@@ -48,7 +51,7 @@ def verificarPro(usuariop,contrap): #funcion para verificar a los maestro en el 
        print("--usuario y contraseña")
 
 
-       if sep[0]== usuariop and sep[3]== contrap:
+       if (sep[0]== usuariop and sep[3]== contrap)==True:
           valor2= sep[0]      
           valor3= sep[3]
           
