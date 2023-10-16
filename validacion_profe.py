@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 from archivos import verificarPro
 from menu_principal import Menu_Profesores
 global registro
@@ -6,7 +7,7 @@ global registro
 def Registro():
     
     registro = Tk()
-    registro.geometry("250x300")
+    registro.geometry("250x300+550+200")
     registro.title("Inicio de secion para catedraticos ")
     registro.resizable(0,0)
     registro.iconbitmap("usac.ico")
@@ -31,7 +32,7 @@ def Registro():
         
 
       else:
-         print("No se puedo")
+         messagebox.showerror("hubo un problema","usuario o contraseña incorrecta")
        #-----------------------------------------------#
     
     boton = Button(registro,text="iniciar",command= verificar)

@@ -1,9 +1,54 @@
-from tkinter import *
-from tkinter import filedialog
+#from tkinter import *
+#from tkinter import filedialog
+#.---------modificar el texto--------------
+with open("texto3.txt","r")as f:
+    a = (len(f.readlines())) 
+    datos = []
+    valor = 2
+    valor2 = int(valor)
+    entrada ='12'
+    f.close()
+    conteo = 0
+   #----crea una lista llamada datos y agrega todos los valores del texto eceptuando el cambio a realizar---#
+with open("texto3.txt","r")as f2:
+    for n in range(a):
+        word = f2.readline()
+        sep = word.split('-')
+        datos.append(sep[0])
+        datos.append(sep[1])
+        datos.append(sep[2])
+        datos.append(sep[3])
+        datos.append(sep[4])
+        datos.append(sep[5])
+        if (conteo == valor2):
+           datos.append(entrada)
+           print("si se pudo")
+        else:
+           datos.append(sep[6])
+           print("no se pudo")
+        conteo = conteo + 1
 
-raiz = Tk()
+ #----------------escribe nuevamente las lines de codigo con el valor modificado----------#       
+print(datos)
+with open("texto4.txt","w")as f3:
+    n = 0
+    for x in range(a):
+
+     f3.write(datos[n+0]+"-"+datos[n+1]+"-"+datos[n+2]+"-"+datos[n+3]+"-"+datos[n+4]+"-"+datos[n+5]+"-"+datos[n+6]+"-"+"v"+"\n")
+     n = n + 7
+print(datos[20])
+ #------------------------------------------   
+
+  
+
+
+
+
+
+
+"""raiz = Tk()
 raiz.geometry("350x400")
-global mostrar
+
 #--------------abre los archivos para saber los cursos disponibles(archivo:texto3.txt)-------#
 
 with open("texto3.txt","r") as f:
@@ -19,28 +64,12 @@ with open("texto3.txt","r") as f:
          
 f2.close()
 #------------------------------funcion Accion---------------
-def accion():
-    
-    
-    #--------seleccionado el curso mostrar datos------
-    with open("texto3.txt","r") as f:
-      a = len(f.readlines())
-    
-    f.close()
-    with open("texto3.txt","r")as f2:
-     for n in range(a):
-       palabra2 = f2.readline()
-       sep2 = palabra2.split('-')
-       info1_v = Label(mostrar,textvariable=valor)
-       info1_v.place(x= 50,y=15)
 
-       if (a == sep2[0]):
-         info2_v = Label(mostrar,text="hola")
-         info2_v.place(x= 50,y=35)
+def hola():
+  info1_v = Label(mostrar,textvariable=valor)
+  info1_v.place(x= 50,y=15)
+    
 
-             
-         
-f2.close()
 
 
     #-------------------------------------------------
@@ -54,13 +83,13 @@ info1.place(x= 15,y=15)
 opcion_curso = Label(raiz,text="Seleccione un Curso")
 opcion_curso.place(x=30,y=30)
 
-menu = OptionMenu(raiz,valor, *resultado,command=accion)
+menu = OptionMenu(raiz,valor, *resultado,command=hola)
 menu.config(height="2",width="15")
 menu.place(x=150, y=30)
 
 
 
-raiz.mainloop()
+raiz.mainloop()"""
 
 
 

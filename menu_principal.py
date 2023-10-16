@@ -3,7 +3,11 @@ from clases_del_curso import nuevo_curso_
 from PIL import Image, ImageTk
 
 
-
+"""esta  modulo esta divido en dos partes
+el menú principal del estudiente y el menu 
+principal del Menu princpal del maestro
+1) estudiante
+2)profesor"""
 
 def Menu_principal():
     menu = Tk()
@@ -54,13 +58,19 @@ def Menu_principal():
 
 
     menu.mainloop()
+#-------------------------------------------------------------------------    
 
 def Menu_Profesores(clases):
+    numero_clases = len(clases)
+    print(numero_clases)#numero de clases asignadas a un profesor
     menu2 = Tk()
     menu2.title("Apartado de profesores")
     menu2.iconbitmap("usac.ico")
     menu2.state('zoomed')#zoomed te deja centrado y pantalla completa
     print(clases)
+    valor_agregado = 10 - numero_clases
+    for n in range(valor_agregado):
+     clases.append("")
     
     
 #----------imagen de fondo-----------#
@@ -78,25 +88,73 @@ def Menu_Profesores(clases):
     
     centro_Cursos = LabelFrame(mostrar2,text= "Cursos Asignados",width="800",height="450",relief="sunken",font=("Verdana",24),background="LightBlue1")
     centro_Cursos.place(relx=0.2,rely=0.35)
-
-    def accion():
+#-------funciones para los apartado de clases asignadas
+    def accion0():
         #curso,codigo y horario
-        nuevo_curso_(clases[0],"90","10am")#llama a la funcion nuevo curso desde clases del cuso
+        with open("texto3.txt","r")as f:
+           a = len(f.readlines())
+           f.close()
+        with open("texto3.txt","r")as f2:
+           for n in range(a):
+              info = f2.readline()   
+              sep0 = info.split('-')
+              if ( clases[0] == sep0[0] ):
+                 horario0 = sep0[3]
+           f2.close()     
+        nuevo_curso_(clases[0],"90",horario0)#llama a la funcion nuevo curso desde clases del cuso
+    def accion1():
+        #curso,codigo y horario
+        with open("texto3.txt","r")as f:
+           a = len(f.readlines())
+           f.close()
+        with open("texto3.txt","r")as f2:
+           for n in range(a):
+              info = f2.readline()   
+              sep0 = info.split('-')
+              if ( clases[1] == sep0[0] ):
+                 horario1 = sep0[3]   
+        f2.close()              
+        nuevo_curso_(clases[1],"90",horario1)#llama a la funcion nuevo curso desde clases del cuso
     def accion2():
         #curso,codigo y horario
-        nuevo_curso_(clases[1],"90","10am")#llama a la funcion nuevo curso desde clases del cuso
+        with open("texto3.txt","r")as f:
+           a = len(f.readlines())
+           f.close()
+        with open("texto3.txt","r")as f2:
+           for n in range(a):
+              info = f2.readline()   
+              sep0 = info.split('-')
+              if ( clases[2] == sep0[0] ):
+                 horario2 = sep0[3]   
+        f2.close() 
+        nuevo_curso_(clases[2],"90",horario2)#llama a la funcion nuevo curso desde clases del cuso
     def accion3():
         #curso,codigo y horario
-        nuevo_curso_(clases[2],"90","10am")#llama a la funcion nuevo curso desde clases del cuso
+        with open("texto3.txt","r")as f:
+           a = len(f.readlines())
+           f.close()
+        with open("texto3.txt","r")as f2:
+           for n in range(a):
+              info = f2.readline()   
+              sep0 = info.split('-')
+              if ( clases[3] == sep0[0] ):
+                 horario3 = sep0[3]   
+        f2.close() 
+        nuevo_curso_(clases[3],"90",horario3)#llama a la funcion nuevo curso desde clases del cuso
     def accion4():
         #curso,codigo y horario
-        nuevo_curso_(clases[3],"90","10am")#llama a la funcion nuevo curso desde clases del cuso    
-                
-
-
-        
-
-
+        with open("texto3.txt","r")as f:
+           a = len(f.readlines())
+           f.close()
+        with open("texto3.txt","r")as f2:
+           for n in range(a):
+              info = f2.readline()   
+              sep0 = info.split('-')
+              if ( clases[4] == sep0[0] ):
+                 horario4 = sep0[3]   
+        f2.close() 
+        nuevo_curso_(clases[4],"90",horario4)#llama a la funcion nuevo curso desde clases del cuso    
+#-------------------------------------------------------                
 
     #asignarCurso= []
 
@@ -110,22 +168,44 @@ def Menu_Profesores(clases):
          asignarCurso[n].place(x=30+a,y = 30) 
          a = a + 120  
          n = n+1"""
-    asignarCurso1= Button(centro_Cursos, text=clases[n],font=("Verdana",10),width="10",height="5",command=accion)
-    asignarCurso1.place(x=30+a,y = 30) 
-    n = n +1
-    a = a + 120
-    asignarCurso2= Button(centro_Cursos, text=clases[n],font=("Verdana",10),width="10",height="5",command=accion2)
-    asignarCurso2.place(x=30+a,y = 30) 
-    n = n +1
-    a = a + 120
-    asignarCurso3= Button(centro_Cursos, text=clases[n],font=("Verdana",10),width="10",height="5",command=accion3)
-    asignarCurso3.place(x=30+a,y = 30) 
-    n = n +1
-    a = a + 120
-    asignarCurso4= Button(centro_Cursos, text=clases[n],font=("Verdana",10),width="10",height="5",command=accion4)
-    asignarCurso4.place(x=30+a,y = 30) 
-    n = n +1
-    a = a + 120   
+    if(numero_clases != 0):
+     asignarCurso0= Button(centro_Cursos, text=clases[n],font=("Verdana",10),width="10",height="5",command=accion0)
+     asignarCurso0.place(x=30+a,y = 30)
+
+     n = n +1
+     a = a + 120
+    numero_clases= numero_clases - 1 
+    if(numero_clases != 0):
+     asignarCurso1= Button(centro_Cursos, text=clases[n],font=("Verdana",10),width="10",height="5",command=accion1)
+     asignarCurso1.place(x=30+a,y = 30)
+
+     n = n +1
+     a = a + 120
+    numero_clases= numero_clases - 1 
+    if(numero_clases != 0):
+     asignarCurso2= Button(centro_Cursos, text=clases[n],font=("Verdana",10),width="10",height="5",command=accion2)
+     asignarCurso2.place(x=30+a,y = 30)
+    
+     n = n +1
+     a = a + 120
+    numero_clases= numero_clases - 1 
+    if(numero_clases != 0):
+     asignarCurso3= Button(centro_Cursos, text=clases[n],font=("Verdana",10),width="10",height="5",command=accion3)
+     asignarCurso3.place(x=30+a,y = 30)
+      
+     n = n +1
+     a = a + 120
+    numero_clases= numero_clases - 1  
+    if(numero_clases != 0):
+     asignarCurso4= Button(centro_Cursos, text=clases[n],font=("Verdana",10),width="10",height="5",command=accion4)
+     asignarCurso4.place(x=30+a,y = 30)
+     print("este es el ultimo dato ")
+     print(type(numero_clases))
+     print(numero_clases)
+     n = n +1
+     a = a + 120
+    numero_clases= numero_clases - 1  
+
  ################################################
     
 
