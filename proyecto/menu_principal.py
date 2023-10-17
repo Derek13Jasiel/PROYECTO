@@ -58,6 +58,7 @@ def Menu_principal():
 
 
     menu.mainloop()
+#-------------------------------------------------------------------------    
 
 def Menu_Profesores(clases):
     numero_clases = len(clases)

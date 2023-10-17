@@ -7,7 +7,7 @@ import archivos as valid
 from menu_principal import Menu_principal
 #import validacion_profe as profe_v
 #configuracion  del frame principal
-
+sig = 0 #varible de la parte de modificacion de curso 
 
 def menu():
     global raiz
@@ -179,12 +179,13 @@ def administracion():
     pantalla4.resizable(0,0)
     global va 
     va = 0
+    global sig
+    sig = 0
     
 
     entorno = LabelFrame(pantalla4,text="Opciones de Administrador",width="295",height="300", fg="black")
     entorno.place(relx=0.1,rely=0.1)
-    visualizacion = Label(entorno,bg="blue",text="hola mundo")
-    visualizacion.place(relx=0.01, rely=0.5)
+
     
     
     
@@ -232,7 +233,24 @@ def administracion():
 
         confirmar = Button(pantalla5_registro,text="Confirmar",command=registrar_M)
         confirmar.place(x= 100 , y = 180  )
-
+#-------------------------------------------------------------------
+    with open("texto4.txt","r")as f:#esto debe pasar a texto3
+        a = len(f.readlines())
+        f.close()
+        guardar = []
+        with open("texto4.txt","r")as f2:
+         for n in range(a):
+            linea = f2.readline()
+            sep = linea.split('-')
+            guardar.append(sep[0])
+            guardar.append(sep[1])
+            guardar.append(sep[2])
+            guardar.append(sep[3])
+            guardar.append(sep[4])
+            guardar.append(sep[5])
+            
+        
+#---------------------------------------------------------------
     def llamar():
         pantalla4.destroy()
         menu_administrador.new_Curso()
@@ -243,7 +261,66 @@ def administracion():
     def  verCursos():
         hola = StringVar()
         print(hola)
-        visualizacion.config(textvariable=hola)
+    
+        
+                
+
+
+         
+    def editarcurso():
+        print("modificar")
+        mod = Toplevel()
+        mod.geometry("450x200")
+        mod.iconbitmap("logo.ico")
+        mod.resizable(0,0)
+        curso_v = StringVar()
+        costo_v = StringVar()
+        horario_v= StringVar()
+        codigo_v = StringVar()
+        cup_v = StringVar()
+        catedratico_v = StringVar()
+#----------apartado de entrada para ver o modificar curso--------------#
+        nombre_curso = Label(mod,text="     curso                     costo       horario      codigo      cupo       catedratico")
+        nombre_curso.place(x= "10",y="10")
+        curso = Entry(mod,width="15",textvariable=curso_v)
+        curso. place(x= 10, y=50)
+        costo = Entry(mod,width="5",textvariable=costo_v)
+        costo. place(x= 120, y=50)
+        horario = Entry(mod,width="5",textvariable=horario_v)
+        horario. place(x= 170, y=50)
+        codigo = Entry(mod,width="5",textvariable=codigo_v)
+        codigo. place(x= 220, y=50)
+        cupo = Entry(mod,width="5",textvariable=cup_v)
+        cupo. place(x= 270, y=50)
+        catedratico = Entry(mod,width="15",textvariable=catedratico_v)
+        catedratico. place(x= 320, y=50)
+        
+        def siguiente():
+            curso.delete(first=0,last=20)
+            costo.delete(first=0,last=20)
+            horario.delete(first=0,last=20)
+            codigo.delete(first=0,last=20)
+            cupo.delete(first=0,last=20)
+            catedratico.delete(first=0,last=20)
+
+            curso.insert(7,guardar[0+sig])
+            costo.insert(7,guardar[1+sig])#falta arreglar lo de la variable sig
+            horario.insert(7,guardar[2+sig])
+            codigo.insert(7,guardar[3+sig])
+            cupo.insert(7,guardar[4+sig])
+            catedratico.insert(7,guardar[5+sig])
+            sig = sig +1
+            
+  #------------------------------------------------------------------------
+        botonsiguiente = Button(mod,text="siguiente",width="8",height="1",bg="blue",command=siguiente)
+        botonsiguiente.place(x=180,y=90)
+        botonmodificar = Button(mod,text="Modificar",width="10",height="2",bg="green")
+        botonmodificar.place(x=50,y=130)
+        botoneliminar = Button(mod,text="Eliminar",width="10",height="2",bg="red")
+        botoneliminar.place(x=170,y=130)      
+        botonguardar = Button(mod,text="Guardar",width="10",height="2",bg="yellow")
+        botonguardar.place(x=300,y=130)
+
 
         
     
@@ -267,6 +344,10 @@ def administracion():
     #boton para ver Maestros Registrados
     VerP = Button(entorno, text= "Maestros registrados", command= MaestrosRegistrados,width="32")   
     VerP.place(relx=0.1 , rely=0.4)
+     #boton para modificar curso
+    modificar = Button(entorno, text= "modificar curso", command= editarcurso,width="32")   
+    modificar.place(relx=0.1 , rely=0.5)
+
     
 
 

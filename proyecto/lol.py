@@ -1,11 +1,115 @@
 from tkinter import *
-from tkinter import filedialog
+#from tkinter import filedialog
 
-a = 10
-for n in range(10):
-    a = a -1 
-    print(a)
-print(a)    
+root = Tk()
+root.title("menu")
+root.geometry("300x300")
+valor = StringVar()
+
+def funcion():
+    salida = Label(root,text=valor.get())
+    salida.pack()
+    
+drop  = OptionMenu(root,valor,"opcion1","opcion2",command=funcion)
+drop.pack()
+
+
+
+root.mainloop()
+
+#.---------modificar el texto--------------
+
+
+
+#----------editar y eliminar texto en un entry
+"""ventana= Tk()
+ventana.geometry("300x300")
+
+with open("texto4.txt","r")as f:
+ a = len(f.readlines())
+ f.close()
+ with open("texto4.txt","r")as f2:
+  for n in range(a):
+   hola = f2.readline()
+   sep = hola.split('-')
+   if (sep[0]=="Fisica1"):
+      palabra = sep[0]
+
+valor = StringVar()
+valor2 = StringVar()
+
+
+palabra2 = ""
+def ver():
+ entrada2.insert(7,palabra)#insertar una palabra en 
+def delete():
+ entrada2.delete(first= 0,last=15)
+ #entrada2.forget()#oculta los widgets
+  
+ 
+
+ 
+
+entrada = Entry(ventana,textvariable=valor)
+entrada.pack()
+
+entrada2 = Entry(ventana,textvariable=valor2)
+entrada2.pack()
+
+boton = Button(ventana,text="siguiente",command=ver)
+boton.pack()
+boton2 = Button(ventana,text="eliminar",command=delete)
+boton2.pack()
+
+
+
+
+ventana.mainloop()"""
+
+#--------------------------------------------------------------
+"""with open("texto3.txt","r")as f:
+    a = (len(f.readlines())) 
+    datos = []
+    valor = 2
+    valor2 = int(valor)
+    entrada ='12'
+    f.close()
+    conteo = 0
+   #----crea una lista llamada datos y agrega todos los valores del texto eceptuando el cambio a realizar---#
+with open("texto3.txt","r")as f2:
+    for n in range(a):
+        word = f2.readline()
+        sep = word.split('-')
+        datos.append(sep[0])
+        datos.append(sep[1])
+        datos.append(sep[2])
+        datos.append(sep[3])
+        datos.append(sep[4])
+        datos.append(sep[5])
+        if (conteo == valor2):
+           datos.append(entrada)
+           print("si se pudo")
+        else:
+           datos.append(sep[6])
+           print("no se pudo")
+        conteo = conteo + 1
+
+ #----------------escribe nuevamente las lines de codigo con el valor modificado----------#       
+print(datos)
+with open("texto4.txt","w")as f3:
+    n = 0
+    for x in range(a):
+
+     f3.write(datos[n+0]+"-"+datos[n+1]+"-"+datos[n+2]+"-"+datos[n+3]+"-"+datos[n+4]+"-"+datos[n+5]+"-"+datos[n+6]+"-"+"v"+"\n")
+     n = n + 7
+print(datos[20])"""
+ #------------------------------------------   
+
+  
+
+
+
+
 
 
 """raiz = Tk()
@@ -28,6 +132,7 @@ f2.close()
 #------------------------------funcion Accion---------------
 
 def hola():
+  
   info1_v = Label(mostrar,textvariable=valor)
   info1_v.place(x= 50,y=15)
     

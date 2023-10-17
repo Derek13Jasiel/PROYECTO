@@ -1,4 +1,10 @@
-Mate2-0987-50-9:00 a 10:00-60-Julio Alberto
-Fisica3-0978-0-8:00 a 10:00-60-Julio Alberto
-Fisica1-0978-0-7:00 a 8:00-40-Julio Alberto
-Laboratorio2-0934-0-7:00 a 8:00-60-Julio Alberto
+Mate2-0987-50-9:00 a 10:00-60-Julio Alberto-0-v
+Fisica3-0978-0-8:00 a 10:00-60-Julio Alberto-0-v
+Fisica1-0978-0-7:00 a 8:00-40-Julio Alberto-0-v
+Laboratorio2-0934-0-7:00 a 8:00-60-Julio Alberto-0-v
+
+Mate2-0987-50-9:00 a 10:00-60-Julio Alberto-0-uno-dos-tres-cuatro-cinco-seis-siete-ocho-v
+Fisica3-0978-0-8:00 a 10:00-60-Julio Alberto-0-uno-dos-tres-cuatro-cinco-seis-siete-ocho-v
+Fisica1-0978-0-7:00 a 8:00-40-Julio Alberto-0-uno-dos-tres-cuatro-cinco-seis-siete-ocho-v
+Laboratorio2-0932-0-11:00 a 12:00-40-Julio Alberto-0-uno-dos-tres-cuatro-cinco-seis-siete-ocho-v
+
