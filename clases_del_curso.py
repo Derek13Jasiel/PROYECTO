@@ -183,6 +183,11 @@ def nuevo_curso_(curso,codigo,horario):
                         f3.write(datos[n+0]+"-"+datos[n+1]+"-"+datos[n+2]+"-"+datos[n+3]+"-"+datos[n+4]+"-"+datos[n+5]+"-"+datos[n+6]+"-"+datos[n+7]+"-"+datos[n+8]+"-"+datos[n+9]+"-"+datos[n+10]+"-"+datos[n+11]+"-"+datos[n+12]+"-"+datos[n+13]+"-"+datos[n+14]+"-"+"v"+"\n")
                         n = n + 15
                   print(datos[20])#por si sale mal
+                  #-------prueba para eliminar los elmentes de la lista datosapartados
+                  datosapartados.clear()
+                  
+
+                  #------------------------------------------------#
                   leerapartados("hola")              
                                  
 #----------------------------------------------------------------------------------------------------------------------------------              
