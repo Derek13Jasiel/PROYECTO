@@ -7,7 +7,9 @@ import archivos as valid
 from menu_principal import Menu_principal
 #import validacion_profe as profe_v
 #configuracion  del frame principal
-
+sig = 0 #varible de la parte de modificacion de curso 
+global otro
+otro = 0
 
 def menu():
     global raiz
@@ -15,7 +17,7 @@ def menu():
 
     raiz = Tk()
     raiz.title("Inicia de Ceción")
-    raiz.geometry("350x400")
+    raiz.geometry("350x400+500+150")
     raiz.resizable(0,0) #no se puede exapandir
     img= (Image.open("usac.png"))
     imagen_reducida= img.resize((320,150))#comando para modificar los valores de altura y anchura de la imagen
@@ -63,7 +65,7 @@ def menu():
                 
                inicio()
            elif (valid.verificar(nombre.get(),contraseña.get()) != 1):
-               messagebox.showerror("hubo un problema","usuario o contraseña incorrecta")
+               messagebox.showerror("Hubo un problema","Usuario o contraseña incorrecta")
                   
            
                
@@ -168,7 +170,7 @@ def maestrof():
     raiz.destroy()
     valid_p.Registro()
     
-    
+sig = 0    
 #------------------------Administrador---------------------------------------------------------#
 def administracion():
     raiz.destroy()
@@ -179,12 +181,13 @@ def administracion():
     pantalla4.resizable(0,0)
     global va 
     va = 0
+    global sig
+    sig = 0
     
 
     entorno = LabelFrame(pantalla4,text="Opciones de Administrador",width="295",height="300", fg="black")
     entorno.place(relx=0.1,rely=0.1)
-    visualizacion = Label(entorno,bg="blue",text="hola mundo")
-    visualizacion.place(relx=0.01, rely=0.5)
+
     
     
     
@@ -232,7 +235,24 @@ def administracion():
 
         confirmar = Button(pantalla5_registro,text="Confirmar",command=registrar_M)
         confirmar.place(x= 100 , y = 180  )
-
+#-------------------------------------------------------------------
+    with open("texto4.txt","r")as f:#esto debe pasar a texto3
+        a = len(f.readlines())
+        f.close()
+        guardar = []
+        with open("texto4.txt","r")as f2:
+         for n in range(a):
+            linea = f2.readline()
+            sep = linea.split('-')
+            guardar.append(sep[0])
+            guardar.append(sep[1])
+            guardar.append(sep[2])
+            guardar.append(sep[3])
+            guardar.append(sep[4])
+            guardar.append(sep[5])
+            
+        
+#---------------------------------------------------------------
     def llamar():
         pantalla4.destroy()
         menu_administrador.new_Curso()
@@ -243,7 +263,118 @@ def administracion():
     def  verCursos():
         hola = StringVar()
         print(hola)
-        visualizacion.config(textvariable=hola)
+    
+        
+                
+
+
+         
+    def editarcurso():
+        print("modificar")
+        mod = Toplevel()
+        mod.geometry("450x200")
+        mod.iconbitmap("logo.ico")
+        mod.resizable(0,0)
+        
+        curso_v = StringVar()
+        costo_v = StringVar()
+        horario_v= StringVar()
+        codigo_v = StringVar()
+        cup_v = StringVar()
+        catedratico_v = StringVar()
+#----------apartado de entrada para ver o modificar curso--------------#
+        nombre_curso = Label(mod,text="     curso                     codigo       costo      horario      cupo       catedratico")
+        nombre_curso.place(x= "10",y="10")
+        curso = Entry(mod,width="15",textvariable=curso_v)#curso
+        curso. place(x= 10, y=50)
+        costo = Entry(mod,width="5",textvariable=costo_v)#codigo
+        costo. place(x= 120, y=50)
+        horario = Entry(mod,width="5",textvariable=horario_v)#costo
+        horario. place(x= 170, y=50)
+        codigo = Entry(mod,width="12",textvariable=codigo_v)#horario
+        codigo. place(x= 220, y=50)
+        cupo = Entry(mod,width="5",textvariable=cup_v)#cupo
+        cupo. place(x= 310, y=50)
+        catedratico = Entry(mod,width="15",textvariable=catedratico_v)#catedratico
+        catedratico. place(x= 350, y=50)
+        
+        def siguiente():
+            global otro #elimina el texto en los entry 
+            curso.delete(first=0,last=20)
+            costo.delete(first=0,last=20)
+            horario.delete(first=0,last=20)
+            codigo.delete(first=0,last=20)
+            cupo.delete(first=0,last=20)
+            catedratico.delete(first=0,last=20)
+
+            curso.insert(7,guardar[0+otro])#agrega los valores de los cusos 
+            costo.insert(7,guardar[1+otro])
+            horario.insert(7,guardar[2+otro])
+            codigo.insert(7,guardar[3+otro])
+            cupo.insert(7,guardar[4+otro])
+            catedratico.insert(7,guardar[5+otro])
+            otro = otro +6
+            if (otro == 6*a):
+                otro = 0
+            #----------------------------------------------------------#                
+        def modificarf():
+            with open("texto4.txt","r")as f:
+                num = len(f.readlines())
+                f.close()
+                datosmodificados1 = []
+            with open("texto4.txt","r")as f2:
+                for n in range(num):
+                    word = f2.readline()
+                    sep1 = word.split('-')
+                    if (otro==(n+1)*6):#---------si otro es igual a  n*6  entonces agrega los valores en las entradas
+                        print(str(otro)+"--vr--"+str((n+1)*6))
+                        datosmodificados1.append(curso.get())
+                        datosmodificados1.append(costo.get())
+                        datosmodificados1.append(horario.get())
+                        datosmodificados1.append(codigo.get())
+                        datosmodificados1.append(cupo.get())
+                        datosmodificados1.append(catedratico.get())
+                    else:
+                        datosmodificados1.append(sep1[0])    
+                        datosmodificados1.append(sep1[1])
+                        datosmodificados1.append(sep1[2])
+                        datosmodificados1.append(sep1[3])
+                        datosmodificados1.append(sep1[4])
+                        datosmodificados1.append(sep1[5])
+                    datosmodificados1.append(sep1[6])
+                    datosmodificados1.append(sep1[7])
+                    datosmodificados1.append(sep1[8])
+                    datosmodificados1.append(sep1[9])
+                    datosmodificados1.append(sep1[10])
+                    datosmodificados1.append(sep1[11])
+                    datosmodificados1.append(sep1[12])
+                    datosmodificados1.append(sep1[13])
+                    datosmodificados1.append(sep1[14])
+                    
+
+                with open("texto4.txt","w")as f3:
+                    extra = 0
+                    for x in range(num):
+
+                     f3.write(datosmodificados1[extra+0]+"-"+datosmodificados1[extra+1]+"-"+datosmodificados1[extra+2]+"-"+datosmodificados1[extra+3]+"-"+datosmodificados1[extra+4]+"-"+datosmodificados1[extra+5]+"-"+datosmodificados1[extra+6]+"-"+datosmodificados1[extra+7]+"-"+datosmodificados1[extra+8]+"-"+datosmodificados1[extra+9]+"-"+datosmodificados1[extra+10]+"-"+datosmodificados1[extra+11]+"-"+datosmodificados1[extra+12]+"-"+datosmodificados1[extra+13]+"-"+datosmodificados1[extra+14]+"-"+"v"+"\n")
+                     extra = extra + 15
+
+
+                    
+
+                    
+  
+            
+  #------------------------------------------------------------------------
+        botonsiguiente = Button(mod,text="siguiente",width="8",height="1",bg="blue",command=siguiente)
+        botonsiguiente.place(x=180,y=90)
+        botonmodificar = Button(mod,text="Modificar",width="10",height="2",bg="green",command=modificarf)
+        botonmodificar.place(x=50,y=130)
+        botoneliminar = Button(mod,text="Eliminar",width="10",height="2",bg="red")
+        botoneliminar.place(x=170,y=130)      
+        botonguardar = Button(mod,text="Guardar",width="10",height="2",bg="yellow")
+        botonguardar.place(x=300,y=130)
+
 
         
     
@@ -267,6 +398,10 @@ def administracion():
     #boton para ver Maestros Registrados
     VerP = Button(entorno, text= "Maestros registrados", command= MaestrosRegistrados,width="32")   
     VerP.place(relx=0.1 , rely=0.4)
+     #boton para modificar curso
+    modificar = Button(entorno, text= "modificar curso", command= editarcurso,width="32")   
+    modificar.place(relx=0.1 , rely=0.5)
+
     
 
 
