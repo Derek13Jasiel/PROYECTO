@@ -46,11 +46,11 @@ def Registro():
 def Menu_principal(usuario,registro):#
     #------mandamos a ver los curso y si los el catedratico esta asigna
   registro
-  with open("texto3.txt","r") as f:
+  with open("texto4.txt","r") as f:
     a = len(f.readlines())
     
     f.close()
-    with open("texto3.txt","r")as f2:
+    with open("texto4.txt","r")as f2:
      resultado= []
      for n in range(a):
        palabra = f2.readline()
@@ -59,10 +59,10 @@ def Menu_principal(usuario,registro):#
        print(sep[5])
 
        print(type(sep[0]))
-       if (usuario and sep[5]):#parte a resolver
+       if (usuario == sep[5]):#parte a resolver
          resultado.append(sep[0])
          print(n+1)
-                
+              
     f2.close()
 
     

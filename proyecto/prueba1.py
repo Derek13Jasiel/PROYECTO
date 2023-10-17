@@ -8,6 +8,8 @@ from menu_principal import Menu_principal
 #import validacion_profe as profe_v
 #configuracion  del frame principal
 sig = 0 #varible de la parte de modificacion de curso 
+global otro
+otro = 0
 
 def menu():
     global raiz
@@ -168,7 +170,7 @@ def maestrof():
     raiz.destroy()
     valid_p.Registro()
     
-    
+sig = 0    
 #------------------------Administrador---------------------------------------------------------#
 def administracion():
     raiz.destroy()
@@ -273,6 +275,7 @@ def administracion():
         mod.geometry("450x200")
         mod.iconbitmap("logo.ico")
         mod.resizable(0,0)
+        
         curso_v = StringVar()
         costo_v = StringVar()
         horario_v= StringVar()
@@ -280,22 +283,23 @@ def administracion():
         cup_v = StringVar()
         catedratico_v = StringVar()
 #----------apartado de entrada para ver o modificar curso--------------#
-        nombre_curso = Label(mod,text="     curso                     costo       horario      codigo      cupo       catedratico")
+        nombre_curso = Label(mod,text="     curso                     codigo       costo      horario      cupo       catedratico")
         nombre_curso.place(x= "10",y="10")
-        curso = Entry(mod,width="15",textvariable=curso_v)
+        curso = Entry(mod,width="15",textvariable=curso_v)#curso
         curso. place(x= 10, y=50)
-        costo = Entry(mod,width="5",textvariable=costo_v)
+        costo = Entry(mod,width="5",textvariable=costo_v)#codigo
         costo. place(x= 120, y=50)
-        horario = Entry(mod,width="5",textvariable=horario_v)
+        horario = Entry(mod,width="5",textvariable=horario_v)#costo
         horario. place(x= 170, y=50)
-        codigo = Entry(mod,width="5",textvariable=codigo_v)
+        codigo = Entry(mod,width="12",textvariable=codigo_v)#horario
         codigo. place(x= 220, y=50)
-        cupo = Entry(mod,width="5",textvariable=cup_v)
-        cupo. place(x= 270, y=50)
-        catedratico = Entry(mod,width="15",textvariable=catedratico_v)
-        catedratico. place(x= 320, y=50)
+        cupo = Entry(mod,width="5",textvariable=cup_v)#cupo
+        cupo. place(x= 310, y=50)
+        catedratico = Entry(mod,width="15",textvariable=catedratico_v)#catedratico
+        catedratico. place(x= 350, y=50)
         
         def siguiente():
+            global otro #elimina el texto en los entry 
             curso.delete(first=0,last=20)
             costo.delete(first=0,last=20)
             horario.delete(first=0,last=20)
@@ -303,20 +307,106 @@ def administracion():
             cupo.delete(first=0,last=20)
             catedratico.delete(first=0,last=20)
 
-            curso.insert(7,guardar[0+sig])
-            costo.insert(7,guardar[1+sig])#falta arreglar lo de la variable sig
-            horario.insert(7,guardar[2+sig])
-            codigo.insert(7,guardar[3+sig])
-            cupo.insert(7,guardar[4+sig])
-            catedratico.insert(7,guardar[5+sig])
-            sig = sig +1
+            curso.insert(7,guardar[0+otro])#agrega los valores de los cusos 
+            costo.insert(7,guardar[1+otro])
+            horario.insert(7,guardar[2+otro])
+            codigo.insert(7,guardar[3+otro])
+            cupo.insert(7,guardar[4+otro])
+            catedratico.insert(7,guardar[5+otro])
+            otro = otro +6
+            if (otro == 6*a):
+                otro = 0
+            #----------------------------------------------------------#                
+        def modificarf():
+            with open("texto4.txt","r")as f:
+                num = len(f.readlines())
+                f.close()
+                datosmodificados1 = []
+            with open("texto4.txt","r")as f2:
+                for n in range(num):
+                    word = f2.readline()
+                    sep1 = word.split('-')
+                    if (otro==(n+1)*6):#---------si otro es igual a  n*6  entonces agrega los valores en las entradas
+                        print(str(otro)+"--vr--"+str((n+1)*6))
+                        datosmodificados1.append(curso.get())
+                        datosmodificados1.append(costo.get())
+                        datosmodificados1.append(horario.get())
+                        datosmodificados1.append(codigo.get())
+                        datosmodificados1.append(cupo.get())
+                        datosmodificados1.append(catedratico.get())
+                    else:
+                        datosmodificados1.append(sep1[0])    
+                        datosmodificados1.append(sep1[1])
+                        datosmodificados1.append(sep1[2])
+                        datosmodificados1.append(sep1[3])
+                        datosmodificados1.append(sep1[4])
+                        datosmodificados1.append(sep1[5])
+                    datosmodificados1.append(sep1[6])
+                    datosmodificados1.append(sep1[7])
+                    datosmodificados1.append(sep1[8])
+                    datosmodificados1.append(sep1[9])
+                    datosmodificados1.append(sep1[10])
+                    datosmodificados1.append(sep1[11])
+                    datosmodificados1.append(sep1[12])
+                    datosmodificados1.append(sep1[13])
+                    datosmodificados1.append(sep1[14])
+                    
+
+                with open("texto4.txt","w")as f3:
+                    extra = 0
+                    for x in range(num):
+
+                     f3.write(datosmodificados1[extra+0]+"-"+datosmodificados1[extra+1]+"-"+datosmodificados1[extra+2]+"-"+datosmodificados1[extra+3]+"-"+datosmodificados1[extra+4]+"-"+datosmodificados1[extra+5]+"-"+datosmodificados1[extra+6]+"-"+datosmodificados1[extra+7]+"-"+datosmodificados1[extra+8]+"-"+datosmodificados1[extra+9]+"-"+datosmodificados1[extra+10]+"-"+datosmodificados1[extra+11]+"-"+datosmodificados1[extra+12]+"-"+datosmodificados1[extra+13]+"-"+datosmodificados1[extra+14]+"-"+"v"+"\n")
+                     extra = extra + 15
+        def eliminar():
+            with open("texto4.txt","r")as f:
+                num = len(f.readlines())
+                f.close()
+                datosmodificados1 = []
+            with open("texto4.txt","r")as f2:
+                for n in range(num):
+                    word = f2.readline()
+                    sep1 = word.split('-')
+                    if (otro==(n+1)*6):#---------si otro es igual a  n*6  entonces agrega los valores en las entradas
+                        print(str(otro)+"--vr--"+str((n+1)*6))
+                    else:
+                        datosmodificados1.append(sep1[0])    
+                        datosmodificados1.append(sep1[1])
+                        datosmodificados1.append(sep1[2])
+                        datosmodificados1.append(sep1[3])
+                        datosmodificados1.append(sep1[4])
+                        datosmodificados1.append(sep1[5])
+                        datosmodificados1.append(sep1[6])
+                        datosmodificados1.append(sep1[7])
+                        datosmodificados1.append(sep1[8])
+                        datosmodificados1.append(sep1[9])
+                        datosmodificados1.append(sep1[10])
+                        datosmodificados1.append(sep1[11])
+                        datosmodificados1.append(sep1[12])
+                        datosmodificados1.append(sep1[13])
+                        datosmodificados1.append(sep1[14])
+                    
+
+                with open("texto4.txt","w")as f3:
+                    extra = 0
+                    for x in range(num-1):
+
+                     f3.write(datosmodificados1[extra+0]+"-"+datosmodificados1[extra+1]+"-"+datosmodificados1[extra+2]+"-"+datosmodificados1[extra+3]+"-"+datosmodificados1[extra+4]+"-"+datosmodificados1[extra+5]+"-"+datosmodificados1[extra+6]+"-"+datosmodificados1[extra+7]+"-"+datosmodificados1[extra+8]+"-"+datosmodificados1[extra+9]+"-"+datosmodificados1[extra+10]+"-"+datosmodificados1[extra+11]+"-"+datosmodificados1[extra+12]+"-"+datosmodificados1[extra+13]+"-"+datosmodificados1[extra+14]+"-"+"v"+"\n")
+                     extra = extra + 15
+            siguiente()         
+        siguiente()             
+
+                    
+
+                    
+  
             
   #------------------------------------------------------------------------
         botonsiguiente = Button(mod,text="siguiente",width="8",height="1",bg="blue",command=siguiente)
         botonsiguiente.place(x=180,y=90)
-        botonmodificar = Button(mod,text="Modificar",width="10",height="2",bg="green")
+        botonmodificar = Button(mod,text="Modificar",width="10",height="2",bg="green",command=modificarf)
         botonmodificar.place(x=50,y=130)
-        botoneliminar = Button(mod,text="Eliminar",width="10",height="2",bg="red")
+        botoneliminar = Button(mod,text="Eliminar",width="10",height="2",bg="red",command=eliminar)
         botoneliminar.place(x=170,y=130)      
         botonguardar = Button(mod,text="Guardar",width="10",height="2",bg="yellow")
         botonguardar.place(x=300,y=130)

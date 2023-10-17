@@ -77,7 +77,7 @@ def nuevo_curso_(curso,codigo,horario):
                  mensaje.place(x=30,y=30)
                  mensaje2 = Label(mensaje,text="Nombre: ")
                  mensaje2.place(x=10,y=20)
-                 entrada = Entry(mensaje,width="30",textvariable=valor_entrada)
+                 entrada = Entry(mensaje,width="30",textvariable=valor_entrada)# este es el entre para asignarle nombre a los apartados
                  entrada.place(x=80, y=20)
                  #----------funcion para poder agregar nuevo boton----------#
                  a = 0
@@ -96,14 +96,13 @@ def nuevo_curso_(curso,codigo,horario):
                               if(curso == sep[0]):
                                  print(sep[6])
                                  valor_de_apartado = sep[6]
-                              else:
-                                 valor_de_apartado = 0   
+                                 
 
                         return valor_de_apartado
                   
 
                            
-
+                     
                      valor_apartado = int(apartado_previo())
                      valor_apartado = valor_apartado + 1
                      salida = str(valor_apartado)
@@ -122,17 +121,55 @@ def nuevo_curso_(curso,codigo,horario):
                         if (curso == sep[0]):
                            datos.append(salida)
                            print("si se pudo")
+                           if(valor_apartado == 1):
+                              datos.append(entrada.get())    #parte donde se le asigna el nombre con el valor_entrada.get()
+                           else:
+                              datos.append(sep[7])
+                           if(valor_apartado == 2):
+                              datos.append(entrada.get())    
+                           else:
+                              datos.append(sep[8])
+                           if(valor_apartado == 3):
+                              datos.append(entrada.get())   
+                           else:
+                              datos.append(sep[9])
+                           if(valor_apartado == 4):
+                              datos.append(entrada.get())    
+                           else:
+                              datos.append(sep[10])
+                           if(valor_apartado == 5):
+                              datos.append(entrada.get())   
+                           else:
+                              datos.append(sep[11])
+                           if(valor_apartado == 6):
+                              datos.append(entrada.get())    
+                           else:
+                              datos.append(sep[12])
+                           if(valor_apartado == 7):
+                              datos.append(entrada.get())    
+                           else:
+                              datos.append(sep[13])
+                           if(valor_apartado == 8):
+                              datos.append(entrada.get())    
+                           else:
+                              datos.append(sep[14]) 
+
+
                         else:
                            datos.append(sep[6])
                            print("no se pudo")
-                        datos.append(sep[7])
-                        datos.append(sep[8])
-                        datos.append(sep[9])
-                        datos.append(sep[10])
-                        datos.append(sep[11])
-                        datos.append(sep[12]) 
-                        datos.append(sep[13])
-                        datos.append(sep[14])                          
+                           datos.append(sep[7])
+                           datos.append(sep[8])
+                           datos.append(sep[9])
+                           datos.append(sep[10])
+                           datos.append(sep[11])
+                           datos.append(sep[12])
+                           datos.append(sep[13])
+                           datos.append(sep[14])
+                          
+                                  
+                            
+                         
 
                      
 
@@ -145,8 +182,13 @@ def nuevo_curso_(curso,codigo,horario):
 
                         f3.write(datos[n+0]+"-"+datos[n+1]+"-"+datos[n+2]+"-"+datos[n+3]+"-"+datos[n+4]+"-"+datos[n+5]+"-"+datos[n+6]+"-"+datos[n+7]+"-"+datos[n+8]+"-"+datos[n+9]+"-"+datos[n+10]+"-"+datos[n+11]+"-"+datos[n+12]+"-"+datos[n+13]+"-"+datos[n+14]+"-"+"v"+"\n")
                         n = n + 15
-                  print(datos[20])
-                                 
+                  print(datos[20])#por si sale mal
+                  #-------prueba para eliminar los elmentes de la lista datosapartados
+                  datosapartados.clear()
+                  
+
+                  #------------------------------------------------#
+                  leerapartados("hola")              
                                  
 #----------------------------------------------------------------------------------------------------------------------------------              
                   iterar_botones(valor_apartado)      
