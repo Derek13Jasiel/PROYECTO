@@ -192,8 +192,9 @@ def Menu_principal(usuario):
                n = n + 15             
          clases_disponibles.clear()
          print(clases_asignadas)
+         valor_iterraciones = num +1
          leer()
-         iterar(num)
+         iterar(valor_iterraciones)
          print(datos)
       
 ###############################################################         
@@ -276,7 +277,7 @@ def Menu_principal(usuario):
 
     menu.mainloop()
 
-Menu_principal("jasiel13")
+Menu_principal("fabiola13")
 #-------------------------------------------------------------------------    
 
 def Menu_Profesores(clases):
