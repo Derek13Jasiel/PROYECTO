@@ -10,7 +10,9 @@ principal del Menu princpal del maestro
 2)profesor"""
 global valor_iterraciones
 valor_iterraciones = 0
+
 global clases_asignadas
+global informacion
 
 
 def Menu_principal(usuario):
@@ -27,6 +29,7 @@ def Menu_principal(usuario):
          
          global valor_iterraciones
          global clases_asignadas
+         
          clases_asignadas = []
 
          for m in range(valor_de_filas):
@@ -34,8 +37,8 @@ def Menu_principal(usuario):
             separador = palabra_d.split('-')
 
             if(usuario == separador[4]):
-               print(usuario+"     "+separador[4])
-               print(separador[8])
+               #print(usuario+"     "+separador[4])
+               #print(separador[8])
                valor_iterraciones = int(separador[8])
                clases_asignadas.append(separador[9])
                clases_asignadas.append(separador[10])
@@ -44,9 +47,27 @@ def Menu_principal(usuario):
                clases_asignadas.append(separador[13])
                clases_asignadas.append(separador[14])
 
-               print(valor_iterraciones)
-               print(clases_asignadas)
+              # print(valor_iterraciones)
+              # print(clases_asignadas)
+      with open("texto4.txt")as cl:
+         cl_s =  len(cl.readlines())
+         cl.close()
+      global informacion   
+      informacion = []   
+      
+      with open("texto4.txt")as cl2:
+         for n in range(cl_s):
+          palabra_i = cl2.readline()
+          sep3 = palabra_i.split('-')
+          m = 0
+          for s in range(len(clases_asignadas)):
+            if(clases_asignadas[m]==sep3[0]):
+               informacion.append(sep3[1])#codigo
+               informacion.append(sep3[3])#horario
+               informacion.append(sep3[5])#catedratico 
+            m = m + 1  
 
+      print(informacion)
       saber_iterraciones2.close()
     leer()
 
@@ -189,13 +210,15 @@ def Menu_principal(usuario):
             for x in range(c):
 
                f3.write(datos[n+0]+"-"+datos[n+1]+"-"+datos[n+2]+"-"+datos[n+3]+"-"+datos[n+4]+"-"+datos[n+5]+"-"+datos[n+6]+"-"+datos[n+7]+"-"+datos[n+8]+"-"+datos[n+9]+"-"+datos[n+10]+"-"+datos[n+11]+"-"+datos[n+12]+"-"+datos[n+13]+"-"+datos[n+14]+"-"+"v"+"\n")
-               n = n + 15             
+               n = n + 15
+         global informacion      
+         informacion.clear()                 
          clases_disponibles.clear()
-         print(clases_asignadas)
+         #print(clases_asignadas)
          valor_iterraciones = num +1
          leer()
          iterar(valor_iterraciones)
-         print(datos)
+         #print(datos)
       
 ###############################################################         
 
@@ -233,17 +256,17 @@ def Menu_principal(usuario):
     asignarCurso = Button(mostrar2, text="Asignarse a un curso",font=("Verdana",10),width="20",height="2",command=asignarse)
     asignarCurso.place(relx=0.87,rely=0.01)
     def accion():
-       nuevo_curso_(clases_asignadas[0],"90","30")
+       nuevo_curso_(clases_asignadas[0],informacion[0],informacion[1],informacion[2],"E")
     def accion2():
-       nuevo_curso_(clases_asignadas[1],"90","30")
+       nuevo_curso_(clases_asignadas[1],informacion[3],informacion[4],informacion[5],"E")
     def accion3():
-       nuevo_curso_(clases_asignadas[2],"90","30")
+       nuevo_curso_(clases_asignadas[2],informacion[6],informacion[7],informacion[8],"E")
     def accion4():
-       nuevo_curso_(clases_asignadas[3],"90","30")  
+       nuevo_curso_(clases_asignadas[3],informacion[9],informacion[10],informacion[11],"E")  
     def accion5():
-       nuevo_curso_(clases_asignadas[4],"90","30")  
+       nuevo_curso_(clases_asignadas[4],informacion[12],informacion[13],informacion[14],"E")  
     def accion6():
-       nuevo_curso_(clases_asignadas[5],"90","30")         
+       nuevo_curso_(clases_asignadas[5],informacion[15],informacion[16],informacion[17],"E")         
     
     #simula el numero de clases asignadas
     def iterar(iteraciciones):
@@ -277,10 +300,10 @@ def Menu_principal(usuario):
 
     menu.mainloop()
 
-Menu_principal("fabiola13")
+
 #-------------------------------------------------------------------------    
 
-def Menu_Profesores(clases):
+def Menu_Profesores(clases,catedratico):
     numero_clases = len(clases)
     print(numero_clases)#numero de clases asignadas a un profesor
     menu2 = Tk()
@@ -321,7 +344,7 @@ def Menu_Profesores(clases):
               if ( clases[0] == sep0[0] ):
                  horario0 = sep0[3]
            f2.close()     
-        nuevo_curso_(clases[0],"90",horario0)#llama a la funcion nuevo curso desde clases del cuso
+        nuevo_curso_(clases[0],"90",horario0,catedratico,"M")#llama a la funcion nuevo curso desde clases del cuso
     def accion1():
         #curso,codigo y horario
         with open("texto4.txt","r")as f:
@@ -334,7 +357,7 @@ def Menu_Profesores(clases):
               if ( clases[1] == sep0[0] ):
                  horario1 = sep0[3]   
         f2.close()              
-        nuevo_curso_(clases[1],"90",horario1)#llama a la funcion nuevo curso desde clases del cuso
+        nuevo_curso_(clases[1],"90",horario1,catedratico,"M")#llama a la funcion nuevo curso desde clases del cuso
     def accion2():
         #curso,codigo y horario
         with open("texto4.txt","r")as f:
@@ -347,7 +370,7 @@ def Menu_Profesores(clases):
               if ( clases[2] == sep0[0] ):
                  horario2 = sep0[3]   
         f2.close() 
-        nuevo_curso_(clases[2],"90",horario2)#llama a la funcion nuevo curso desde clases del cuso
+        nuevo_curso_(clases[2],"90",horario2,catedratico,"M")#llama a la funcion nuevo curso desde clases del cuso
     def accion3():
         #curso,codigo y horario
         with open("texto4.txt","r")as f:
@@ -360,7 +383,7 @@ def Menu_Profesores(clases):
               if ( clases[3] == sep0[0] ):
                  horario3 = sep0[3]   
         f2.close() 
-        nuevo_curso_(clases[3],"90",horario3)#llama a la funcion nuevo curso desde clases del cuso
+        nuevo_curso_(clases[3],"90",horario3,catedratico,"M")#llama a la funcion nuevo curso desde clases del cuso
     def accion4():
         #curso,codigo y horario
         with open("texto4.txt","r")as f:
@@ -373,7 +396,7 @@ def Menu_Profesores(clases):
               if ( clases[4] == sep0[0] ):
                  horario4 = sep0[3]   
         f2.close() 
-        nuevo_curso_(clases[4],"90",horario4)#llama a la funcion nuevo curso desde clases del cuso    
+        nuevo_curso_(clases[4],"90",horario4,catedratico,"M")#llama a la funcion nuevo curso desde clases del cuso    
 #-------------------------------------------------------                
 
     #asignarCurso= []

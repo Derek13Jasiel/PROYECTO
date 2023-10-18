@@ -1,6 +1,6 @@
-Mate2-0987-50-9:00 a 10:00-60-Julio Alberto-6-hola-adios-ellla-soy-johana-jasiel-siete-ocho-v
-Fisica3-0978-0-8:00 a 10:00-60-Julio Alberto-3-Examen -Parcial-Practica1-soy-cinco-seis-siete-ocho-v
-Fisica1-0978-0-7:00 a 8:00-40-Julio Alberto-6-johana-jasiel-hoy-vida-fisica-practica2-siete-ocho-v
+Mate2-0987-60-9:00 a 10:00-40-Julio Alberto-6-hola-adios-ellla-soy-johana-jasiel-siete-ocho-v
+Fisica3-0978-0-8:00 a 10:00-50-Julio Alberto-3-Examen -Parcial-Practica1-soy-cinco-seis-siete-ocho-v
+Fisica1-0978-0-7:00 a 8:00-40-Julio Alberto-10-johana-jasiel-hoy-vida-fisica-practica2-hola-hoy-v
 Laboratorio2-0932-0-11:00 a 12:00-40-Julio Alberto-3-Examen1-Examen2-Tareas-soy-cinco-seis-siete-ocho-v
 programacion-20-30-9:00 a 11:00-20-Julio Alberto-3-coca-pepsi-ella no te ama-0-0-0-0-0-v
 Ontologia-20-30-9:00 a 11:00-20-Tannia Melany-1-laboratorio-0-0-0-0-0-0-0-v

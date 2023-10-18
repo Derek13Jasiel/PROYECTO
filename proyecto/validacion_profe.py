@@ -64,12 +64,12 @@ def Menu_principal(usuario,registro):#
          print(n+1)
               
     f2.close()
-
+    catedratico = usuario
     
     
 
 
-    Menu_Profesores(resultado)
+    Menu_Profesores(resultado,catedratico)
 
 
     #------------------------#

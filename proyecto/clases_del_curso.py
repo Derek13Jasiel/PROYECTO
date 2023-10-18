@@ -10,7 +10,7 @@ valory = 260
 a = 0
 
      
-def nuevo_curso_(curso,codigo,horario):
+def nuevo_curso_(curso,codigo,horario,catedratico,Modo):
          
          curso_nuevo = Tk() 
          curso_nuevo.title(curso)
@@ -23,6 +23,8 @@ def nuevo_curso_(curso,codigo,horario):
 
          nombre_delcurso = Label(curso_nuevo,text=curso,bg="white",width="30",height="3",font="Helvetica 30")
          nombre_delcurso.place(x= 330, y=50)
+         catedratico_del_curso = Label(curso_nuevo,text=catedratico,font="Helvetica 15")
+         catedratico_del_curso.place(x=330,y=180)
          #-----------apartado de framelabel------------------------#
          cuadro_centrado = LabelFrame(curso_nuevo,text="Horario de "+  horario,font="30",width="950",height="450",relief=SUNKEN,bd=10)
          cuadro_centrado.place(x=200, y= 230)
@@ -205,8 +207,12 @@ def nuevo_curso_(curso,codigo,horario):
 
                  pantalla.mainloop()
          
-         crear_boton = Button(curso_nuevo, text="Nuevo apartado",background="light cyan",font="19",command=nuevo)
-         crear_boton.place_forget()#x=1200,y=20   
+         if (Modo == "E"):
+            crear_boton = Button(curso_nuevo, text="Nuevo apartado",background="light cyan",font="19",command=nuevo)
+            crear_boton.place_forget()#x=1200,y=20  
+         if (Modo == "M"):    
+           crear_boton = Button(curso_nuevo, text="Nuevo apartado",background="light cyan",font="19",command=nuevo)
+           crear_boton.place(x=1200,y=20)
          
          
          #-----------botones de informacion------------#

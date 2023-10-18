@@ -3,6 +3,7 @@ from tkinter import messagebox
 from PIL import Image, ImageTk
 from tkinter import filedialog
 import menu_administrador
+from enviar_correo import enviar
 import validacion_profe as valid_p
 import archivos as valid
 from menu_principal import Menu_principal
@@ -40,11 +41,49 @@ def menu():
     #texto2 = Label(raiz,text="DE GUATEMALA")
     #texto2.pack()
 
+    def recuperarf():
+        recuperar_r = Toplevel()
+        recuperar_r.geometry("350x400+500+150")
+        recuperar_r.resizable(0,0)
+        recuperar_r.iconbitmap("usac.ico")
+        usuario_v = StringVar()
+        correo_v = StringVar()
+        mensaje = Label(recuperar_r,text="Ingrese Sus datos",font=("curier 18"))
+        mensaje.place(x=50,y=40)
+        mensaje = Label(recuperar_r,text="Usuario")
+        mensaje.place(x=20,y=140)
+        mensaje = Label(recuperar_r,text="correo electronico")
+        mensaje.place(x=20,y=200)
+        usuario = Entry(recuperar_r,textvariable=usuario_v)
+        usuario.place(x=150,y=140)
+        correo = Entry(recuperar_r,textvariable=correo_v)
+        correo.place(x=150,y=200)
+        def confirmar():
+            with open("texto3.txt","r")as f:
+                a = len(f.readlines())
+                f.close()
+                valor = 0
+            with open("texto3.txt","r")as f2:    
+                for x in range(a):
+                    palabra = f2.readline()
+                    sep = palabra.split('-')
+                    if (usuario.get()==sep[4]and correo.get()==sep[5]):
+                        enviar(usuario.get(),correo.get(),sep[7])
+                        valor = 1
+                        messagebox.showinfo("Recuperacion","Se le ha enviado su contraseña por su correo electronico")
+                if(valor != 1):
+                 messagebox.showerror("Hubo un Problema","El Usuario o el correo no coinciden o no estan registrados")
+        confirmar_boton = Button(recuperar_r,text="confirmar",command=confirmar)
+        confirmar_boton.place(x=130,y=250)
+
+
     #crear labels de ingreso de datos nombre y contraseña
     texto3 = Label(raiz,text="Nombre",font=("curier 10"), bd= 4)
     texto3.place(x = 30, y = 160)
     texto4 = Label(raiz,text="contraseña",font=("curier 10"), bd= 4)
     texto4.place(x = 30, y = 180)
+    recuperar = Button(raiz,text="recuperar mi contraseña",command=recuperarf)
+    recuperar.place(x=100,y=370)
 
     #crear entradas para nombre y contraseña
     entrada = Entry(raiz,textvariable=nombre)#nombre
@@ -64,7 +103,8 @@ def menu():
            if(valid.verificar(nombre.get(),contraseña.get()) == 1) :
                #llama a la funcion verificar del modulo valid 
                 
-               inicio()
+               inicio(nombre.get())
+
            elif (valid.verificar(nombre.get(),contraseña.get()) != 1):
                messagebox.showerror("Hubo un problema","Usuario o contraseña incorrecta")
                   
@@ -72,10 +112,10 @@ def menu():
                
 
 
-    def inicio():
+    def inicio(usuario):
         raiz.destroy()#importante destruir los widgets antes de pasar a otro 
         
-        Menu_principal()#llama a la funcion menu principal desde el modulo de menu principal
+        Menu_principal(usuario)#llama a la funcion menu principal desde el modulo de menu principal
  
     
     #crear botones 
@@ -379,64 +419,31 @@ def administracion():
                 otro = 0
             #----------------------------------------------------------#                
         def modificarf():
-            with open("texto4.txt","r")as f:
-                num = len(f.readlines())
-                f.close()
-                datosmodificados1 = []
-            with open("texto4.txt","r")as f2:
-                for n in range(num):
-                    word = f2.readline()
-                    sep1 = word.split('-')
-                    if (otro==(n+1)*6):#---------si otro es igual a  n*6  entonces agrega los valores en las entradas
-                        print(str(otro)+"--vr--"+str((n+1)*6))
-                        datosmodificados1.append(curso.get())
-                        datosmodificados1.append(costo.get())
-                        datosmodificados1.append(horario.get())
-                        datosmodificados1.append(codigo.get())
-                        datosmodificados1.append(cupo.get())
-                        datosmodificados1.append(catedratico.get())
-                    else:
-                        datosmodificados1.append(sep1[0])    
-                        datosmodificados1.append(sep1[1])
-                        datosmodificados1.append(sep1[2])
-                        datosmodificados1.append(sep1[3])
-                        datosmodificados1.append(sep1[4])
-                        datosmodificados1.append(sep1[5])
-                    datosmodificados1.append(sep1[6])
-                    datosmodificados1.append(sep1[7])
-                    datosmodificados1.append(sep1[8])
-                    datosmodificados1.append(sep1[9])
-                    datosmodificados1.append(sep1[10])
-                    datosmodificados1.append(sep1[11])
-                    datosmodificados1.append(sep1[12])
-                    datosmodificados1.append(sep1[13])
-                    datosmodificados1.append(sep1[14])
-                    
-
-                with open("texto4.txt","w")as f3:
-                    extra = 0
-                    for x in range(num):
-
-                     f3.write(datosmodificados1[extra+0]+"-"+datosmodificados1[extra+1]+"-"+datosmodificados1[extra+2]+"-"+datosmodificados1[extra+3]+"-"+datosmodificados1[extra+4]+"-"+datosmodificados1[extra+5]+"-"+datosmodificados1[extra+6]+"-"+datosmodificados1[extra+7]+"-"+datosmodificados1[extra+8]+"-"+datosmodificados1[extra+9]+"-"+datosmodificados1[extra+10]+"-"+datosmodificados1[extra+11]+"-"+datosmodificados1[extra+12]+"-"+datosmodificados1[extra+13]+"-"+datosmodificados1[extra+14]+"-"+"v"+"\n")
-                     extra = extra + 15
-        def eliminar():
-            with open("texto4.txt","r")as f:
-                num = len(f.readlines())
-                f.close()
-                datosmodificados1 = []
-            with open("texto4.txt","r")as f2:
-                for n in range(num):
-                    word = f2.readline()
-                    sep1 = word.split('-')
-                    if (otro==(n+1)*6):#---------si otro es igual a  n*6  entonces agrega los valores en las entradas
-                        print(str(otro)+"--vr--"+str((n+1)*6))
-                    else:
-                        datosmodificados1.append(sep1[0])    
-                        datosmodificados1.append(sep1[1])
-                        datosmodificados1.append(sep1[2])
-                        datosmodificados1.append(sep1[3])
-                        datosmodificados1.append(sep1[4])
-                        datosmodificados1.append(sep1[5])
+            respuesta = messagebox.askyesno("Modificar", "¿Esta Seguro que desea Modificar?")
+            if (respuesta == True):
+                with open("texto4.txt","r")as f:
+                    num = len(f.readlines())
+                    f.close()
+                    datosmodificados1 = []
+                with open("texto4.txt","r")as f2:
+                    for n in range(num):
+                        word = f2.readline()
+                        sep1 = word.split('-')
+                        if (otro==(n+1)*6):#---------si otro es igual a  n*6  entonces agrega los valores en las entradas
+                            print(str(otro)+"--vr--"+str((n+1)*6))
+                            datosmodificados1.append(curso.get())
+                            datosmodificados1.append(costo.get())
+                            datosmodificados1.append(horario.get())
+                            datosmodificados1.append(codigo.get())
+                            datosmodificados1.append(cupo.get())
+                            datosmodificados1.append(catedratico.get())
+                        else:
+                            datosmodificados1.append(sep1[0])    
+                            datosmodificados1.append(sep1[1])
+                            datosmodificados1.append(sep1[2])
+                            datosmodificados1.append(sep1[3])
+                            datosmodificados1.append(sep1[4])
+                            datosmodificados1.append(sep1[5])
                         datosmodificados1.append(sep1[6])
                         datosmodificados1.append(sep1[7])
                         datosmodificados1.append(sep1[8])
@@ -446,15 +453,53 @@ def administracion():
                         datosmodificados1.append(sep1[12])
                         datosmodificados1.append(sep1[13])
                         datosmodificados1.append(sep1[14])
-                    
+                        
 
-                with open("texto4.txt","w")as f3:
-                    extra = 0
-                    for x in range(num-1):
+                    with open("texto4.txt","w")as f3:
+                        extra = 0
+                        for x in range(num):
 
-                     f3.write(datosmodificados1[extra+0]+"-"+datosmodificados1[extra+1]+"-"+datosmodificados1[extra+2]+"-"+datosmodificados1[extra+3]+"-"+datosmodificados1[extra+4]+"-"+datosmodificados1[extra+5]+"-"+datosmodificados1[extra+6]+"-"+datosmodificados1[extra+7]+"-"+datosmodificados1[extra+8]+"-"+datosmodificados1[extra+9]+"-"+datosmodificados1[extra+10]+"-"+datosmodificados1[extra+11]+"-"+datosmodificados1[extra+12]+"-"+datosmodificados1[extra+13]+"-"+datosmodificados1[extra+14]+"-"+"v"+"\n")
-                     extra = extra + 15
-            siguiente()         
+                         f3.write(datosmodificados1[extra+0]+"-"+datosmodificados1[extra+1]+"-"+datosmodificados1[extra+2]+"-"+datosmodificados1[extra+3]+"-"+datosmodificados1[extra+4]+"-"+datosmodificados1[extra+5]+"-"+datosmodificados1[extra+6]+"-"+datosmodificados1[extra+7]+"-"+datosmodificados1[extra+8]+"-"+datosmodificados1[extra+9]+"-"+datosmodificados1[extra+10]+"-"+datosmodificados1[extra+11]+"-"+datosmodificados1[extra+12]+"-"+datosmodificados1[extra+13]+"-"+datosmodificados1[extra+14]+"-"+"v"+"\n")
+                         extra = extra + 15
+
+        def eliminar():
+            respuesta2 = messagebox.askyesno("Eliminar", "¿Esta Seguro que desea Eliminar el Curso?")
+            if(respuesta2 == True):
+                with open("texto4.txt","r")as f:
+                    num = len(f.readlines())
+                    f.close()
+                    datosmodificados1 = []
+                with open("texto4.txt","r")as f2:
+                    for n in range(num):
+                        word = f2.readline()
+                        sep1 = word.split('-')
+                        if (otro==(n+1)*6):#---------si otro es igual a  n*6  entonces agrega los valores en las entradas
+                            print(str(otro)+"--vr--"+str((n+1)*6))
+                        else:
+                            datosmodificados1.append(sep1[0])    
+                            datosmodificados1.append(sep1[1])
+                            datosmodificados1.append(sep1[2])
+                            datosmodificados1.append(sep1[3])
+                            datosmodificados1.append(sep1[4])
+                            datosmodificados1.append(sep1[5])
+                            datosmodificados1.append(sep1[6])
+                            datosmodificados1.append(sep1[7])
+                            datosmodificados1.append(sep1[8])
+                            datosmodificados1.append(sep1[9])
+                            datosmodificados1.append(sep1[10])
+                            datosmodificados1.append(sep1[11])
+                            datosmodificados1.append(sep1[12])
+                            datosmodificados1.append(sep1[13])
+                            datosmodificados1.append(sep1[14])
+                        
+
+                    with open("texto4.txt","w")as f3:
+                        extra = 0
+                        for x in range(num-1):
+
+                         f3.write(datosmodificados1[extra+0]+"-"+datosmodificados1[extra+1]+"-"+datosmodificados1[extra+2]+"-"+datosmodificados1[extra+3]+"-"+datosmodificados1[extra+4]+"-"+datosmodificados1[extra+5]+"-"+datosmodificados1[extra+6]+"-"+datosmodificados1[extra+7]+"-"+datosmodificados1[extra+8]+"-"+datosmodificados1[extra+9]+"-"+datosmodificados1[extra+10]+"-"+datosmodificados1[extra+11]+"-"+datosmodificados1[extra+12]+"-"+datosmodificados1[extra+13]+"-"+datosmodificados1[extra+14]+"-"+"v"+"\n")
+                         extra = extra + 15
+                siguiente()         
         siguiente()             
 
                     
@@ -463,14 +508,13 @@ def administracion():
   
             
   #------------------------------------------------------------------------
-        botonsiguiente = Button(mod,text="siguiente",width="8",height="1",bg="blue",command=siguiente)
-        botonsiguiente.place(x=180,y=90)
+  
         botonmodificar = Button(mod,text="Modificar",width="10",height="2",bg="green",command=modificarf)
         botonmodificar.place(x=50,y=130)
         botoneliminar = Button(mod,text="Eliminar",width="10",height="2",bg="red",command=eliminar)
         botoneliminar.place(x=170,y=130)      
-        botonguardar = Button(mod,text="Guardar",width="10",height="2",bg="yellow")
-        botonguardar.place(x=300,y=130)
+        botonsiguiente = Button(mod,text="Siguiente",width="10",height="2",bg="yellow",command=siguiente)
+        botonsiguiente.place(x=300,y=130)
 
 
         
