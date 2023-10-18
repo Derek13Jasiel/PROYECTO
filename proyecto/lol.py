@@ -1,13 +1,235 @@
 from tkinter import *
-#from tkinter import filedialog
+from PIL import Image, ImageTk
+from tkinter import filedialog
+import tkinter 
+  
+
+root = tkinter.Tk() 
+root.title("Asignar Un Curso") 
+root.geometry('380x380') 
+root.iconbitmap("usac.ico")
+root.resizable(0,0)
+with open("texto4.txt","r")as f:
+    a = len(f.readlines())
+    f.close()
+    clases_disponibles = []
+    profesores_disponibles = []
+    horarios_disponible = []
+    costo_disponibles = []
+    codigo_disponibles = []
+with open("texto4.txt","r")as f2:
+
+    for n in range(a):
+        fila = f2.readline()
+        sep = fila.split('-')
+        clases_disponibles.append(sep[0])
+        codigo_disponibles.append(sep[1])
+        costo_disponibles.append(sep[2])
+        horarios_disponible.append(sep[3])
+        profesores_disponibles.append(sep[5])
+    f2.close()
+  
+seleccione = Label(root,text="Seleccione una clase")
+seleccione.place(x=30,y=40)
+
+
+valor = tkinter.StringVar(root) 
+valor.set("Cursos") 
+
+menu_clases = tkinter.OptionMenu(root, valor, *clases_disponibles) 
+menu_clases.place(x=180,y=40)
+
+informacion = LabelFrame(root,text="informacion del curso",width="330",height="200")
+informacion.place(x=30,y=100)
+  
+  
+def verinformacion(): 
+    #---obtenemos la posicion de el valor.get() y buscamos hoario y profesor en sus respectivas listas
+    b = clases_disponibles.index(valor.get())
+
+    profesores_variable =  profesores_disponibles[b]
+    codigo_variable = codigo_disponibles[b]
+    costo_variable = costo_disponibles[b]
+    horario_variable = horarios_disponible[b]
+
+    profesores = Label(informacion,text=profesores_variable,bg="red",width="14",anchor='w')
+    profesores.place(x=200,y=50)
+    horario = Label(informacion,text=horario_variable,bg="red",width="14")
+    horario.place(x=200,y=80)
+    codigo = Label(informacion,text=codigo_variable,bg="red",width="14")
+    codigo.place(x=200,y=110)
+    costo = Label(informacion,text=costo_variable,bg="red",width="14")
+    costo.place(x=200,y=140)
+
+    return None
+def asignarsef():
+    with open("texto3.txt","r")as fila:
+        c = len(fila.readlines()) #numero de filas de el apartado de registro(texto.txt)
+        print(c)
+        datos = []#----------esta lista se almacenaran todos los datos de texto.txt
+        fila.close()#codigo es para leer los archivos y reescribirlos (texto.txt) agregando los nuevos apartados
+    with open("texto3.txt","r")as fila2:
+
+        for n in range(c):
+               
+            cadena = fila2.readline()
+            sep2 = cadena.split('-')#14
+            
+            datos.append(sep2[0])
+            datos.append(sep2[1])
+            datos.append(sep2[2])
+            datos.append(sep2[3])
+            datos.append(sep2[4])#apartado de usuario
+            datos.append(sep2[5])
+            datos.append(sep2[6])
+            datos.append(sep2[7])
+            if ("jasiel13"==sep2[4]): #sirve para localizar al uzuario y incertar la nueva
+                num = int(sep2[8])
+                datos.append(str(num+1))
+                if(num == 0):
+                 datos.append(valor.get())
+                else:
+                 datos.append(sep2[9])
+                if(num == 1):
+                 datos.append(valor.get())
+                else:
+                 datos.append(sep2[10])    
+                if(num == 2):
+                 datos.append(valor.get())
+                else:
+                 datos.append(sep2[11])
+                if(num == 3):
+                 datos.append(valor.get())
+                else:
+                 datos.append(sep2[12])
+                if(num == 4):
+                 datos.append(valor.get())
+                else:
+                 datos.append(sep2[13])
+                if(num == 5):
+                 datos.append(valor.get())
+                else:
+                 datos.append(sep2[14]) 
+            else:
+              datos.append(sep2[8])
+              datos.append(sep2[9])
+              datos.append(sep2[10])
+              datos.append(sep2[11])
+              datos.append(sep2[12])
+              datos.append(sep2[13])  
+              datos.append(sep2[14])  
+
+    with open("texto3.txt","w")as f3:
+        n = 0
+        for x in range(c):
+
+          f3.write(datos[n+0]+"-"+datos[n+1]+"-"+datos[n+2]+"-"+datos[n+3]+"-"+datos[n+4]+"-"+datos[n+5]+"-"+datos[n+6]+"-"+datos[n+7]+"-"+datos[n+8]+"-"+datos[n+9]+"-"+datos[n+10]+"-"+datos[n+11]+"-"+datos[n+12]+"-"+datos[n+13]+"-"+datos[n+14]+"-"+"v"+"\n")
+          n = n + 15             
+
+    print(datos)
+  
+    
+
+
+
+asignarse = Button(root,text="Asignarse",command=asignarsef)
+asignarse.place(x=150,y= 320)
+
+prueba = Label(informacion,textvariable=valor) 
+prueba.place(x=200,y=20)
+
+info = Label(informacion,text="curso:")
+info.place(x=130,y=20)
+info = Label(informacion,text="Catedratico:")
+info.place(x=130,y=50)
+info = Label(informacion,text="Horario:")
+info.place(x=130,y=80)
+info = Label(informacion,text="Codigo:")
+info.place(x=130,y=110)
+info = Label(informacion,text="Costo:")
+info.place(x=130,y=140)
+
+
+verInformacion = tkinter.Button(informacion, text='ver informacion', command=verinformacion) 
+verInformacion.place(x=20,y=120)
+
+
+
+  
+root.mainloop() 
+
+
+#-----------abrir un buscador de archivo y selecciona una foto----------
+"""root = Tk()
+
+root.geometry("300x300+400+300")
+def buscar():
+    global img_tk
+    root.filename = filedialog.askopenfilename(title="buscar imagenes")
+
+    label1 = Label(root,text=root.filename)
+    label1.pack()
+
+    img = Image.open(root.filename)
+    nueva = img.resize((100,100))
+    img_tk = ImageTk.PhotoImage(nueva)
+
+    label2 = Label(root,image = img_tk)
+    label2.pack()
+
+btn = Button(root,text="buscar",command=buscar)
+btn.pack()
+
+
+
+root.mainloop()"""
+#----------------------------------------------
+"""
+from tkinter import *
+from PIL import Image, ImageTk
+from tkinter import filedialog
 
 root = Tk()
+root.geometry("300x300+400+300")
+def buscar():
+    global img_tk
+    root.filename = filedialog.askopenfilename(title="buscar imagenes")
+
+    label1 = Label(root,text=root.filename)
+    label1.pack()
+
+    img = Image.open(root.filename)
+    img_tk = ImageTk.PhotoImage(img)    
+
+    label2 = Label(root,image = img_tk)
+    label2.pack()
+
+btn = Button(root,text="buscar",command=buscar)
+btn.pack()
+
+
+
+root.mainloop()"""
+
+
+
+
+
+
+
+
+
+
+
+"""root = Tk()
 root.title("menu")
 root.geometry("300x300")
+global valor
 valor = StringVar()
 
 def funcion():
-    salida = Label(root,text=valor.get())
+    global valor
+    salida = Label(root,textvariable=valor)
     salida.pack()
     
 drop  = OptionMenu(root,valor,"opcion1","opcion2",command=funcion)
@@ -15,7 +237,7 @@ drop.pack()
 
 
 
-root.mainloop()
+root.mainloop()"""
 
 #.---------modificar el texto--------------
 

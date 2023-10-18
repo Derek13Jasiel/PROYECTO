@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from PIL import Image, ImageTk
+from tkinter import filedialog
 import menu_administrador
 import validacion_profe as valid_p
 import archivos as valid
@@ -55,7 +56,7 @@ def menu():
     #funciones
     #funcion validar administracion y validar usuarios
     def adminf():
-    
+        
         if nombre.get() == "admin" and  contraseña.get()== "1234": #verificacion del administrador
             administracion()
             
@@ -95,9 +96,10 @@ def menu():
 
 def registrarsef(): #CREA EL MUNU DE RISGISTRO
     pantalla2 = Toplevel()
-    pantalla2.geometry("400x400")
+    pantalla2.geometry("400x500+300+200")
     pantalla2.title("Registrarse")
     pantalla2.resizable(0,0)
+    pantalla2.iconbitmap("usac.ico")
     #string vars para la entrada en registro
     vnombre = StringVar()
     vapellido = StringVar()
@@ -157,14 +159,73 @@ def registrarsef(): #CREA EL MUNU DE RISGISTRO
     contra2.place(x=50, y= 310)
     contra2= Entry(pantalla2,textvariable=vcontra2,show='*') 
     contra2.place(x=180 , y = 310)
+    def seleccionar():
+
+            global img_tk
+            pantalla2.filename = filedialog.askopenfilename(title="buscar imagenes")
+
+            #label1 = Label(pantalla2,text=pantalla2.filename)
+            #label1.pack()
+
+            img = Image.open(pantalla2.filename)
+            nueva = img.resize((100,100))
+            img_tk = ImageTk.PhotoImage(nueva)
+
+            label2 = Label(pantalla2,image = img_tk)
+            label2.place(x=180,y=340)
+
+
+
+
 
     def validar():#metodo llama a validar el registro 
-        valid.valid_registro(nombre.get(),apellido.get(),DPI.get(),celular.get(),usuario.get(),correo.get(),fecha.get(),contra.get(),contra2.get())
-        print(nombre.get() + apellido.get())
+        #se verifica el usuario y si este no se repite
+        valor_de_verificacion = 0
+        with open("texto.txt","r")as ver:
+            a = len(ver.readlines())
+            ver.close()
+            print(a)
+        with open("texto.txt","r")as ver2: 
+            for n in range(a):
+                 
+              palabra = ver2.readline()
+              sep = palabra.split('-')
+
+              if (usuario.get()==sep[4]):
+                  valor_de_verificacion = 1
+        ver2.close() 
+        if(nombre.get()!= "" and apellido.get()!="" and celular.get()!="" and usuario.get()!=""and fecha.get()!= ""and contra.get()!="" and contra2.get()!=""):
+
+            _contra_ = contra.get()       
+            if(contra.get()!=contra2.get()):
+                messagebox.showerror("Error ","Contraseñas no coinciden")
+                valor_de_verificacion = 2
+            elif(len(contra.get())<8):
+                messagebox.showerror("Error ","La contraseña es de 8 caracteres")
+                valor_de_verificacion = 2
+            elif(_contra_.islower()==True):
+                messagebox.showerror("Error ","La contraseña debe Tener Mayusculas")
+                valor_de_verificacion = 2
+            """ elif(_contra_.isdigit()==False):
+                messagebox.showerror("Error ","La contraseña debe Tener un Digito")
+                valor_de_verificacion = 2  """  
+
+                
+            if(valor_de_verificacion ==0):      
+                valid.valid_registro(nombre.get(),apellido.get(),DPI.get(),celular.get(),usuario.get(),correo.get(),fecha.get(),contra.get(),contra2.get())
+                print(nombre.get() + apellido.get())
+            elif(valor_de_verificacion == 1):
+                messagebox.showerror("Usuario No Valido","El Usuario  "+usuario.get()+"  Ya esta rigistrado")  
+        else:
+          messagebox.showerror("Error ","Todas las casillas deben estar completadas")        
+
+#------------boton para seleccionar la imagen y para validar el registro-----------
+    buscar = Button(pantalla2,text="Seleccione una foto",command=seleccionar)
+    buscar.place(x=50, y=380)    
 
     
     boton = Button(pantalla2, text= "confirmar",command=validar,font=("curier 10"))
-    boton.place(x= 180, y= 350)
+    boton.place(x= 180, y= 450)
 
 def maestrof():
     raiz.destroy()

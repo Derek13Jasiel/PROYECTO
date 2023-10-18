@@ -33,31 +33,47 @@ def Menu_principal():
     centro_Cursos.place(relx=0.2,rely=0.35)
     #----------funcion crear asignarse nuevo curso-------------#
     def asignarse():
-        ventanAsignacion = Toplevel()
-        ventanAsignacion.iconbitmap("usac.ico")
-        ventanAsignacion.geometry("300x300+910+80")
-        ventanAsignacion.resizable(0,0)
-        ventanAsignacion.title("Asignarse un curso")
-        barra= Menu(ventanAsignacion)
-        archivo = Menu(barra)
-        archivo.add_command(label= "abrir")
-        archivo.add_command(label= "cerrar")
-        archivo.add_command(label= "cancelar")
-        archivo.add_separator()
-        archivo.add_command(label= "salir")
-        barra.add_cascade(label= "archivo",menu=archivo)
-        ventanAsignacion.config(menu=barra)
+      nuevo_curso_("Fisica3","hola","23:00 a 24:00")
 
     #----------botones ------------------------#
 
     asignarCurso = Button(mostrar2, text="Asignarse a un curso",font=("Verdana",10),width="20",height="2",command=asignarse)
     asignarCurso.place(relx=0.87,rely=0.01)
     
+    numero = 3#simula el numero de clases asignadas
+    def iterar(iteraciciones):
+      
+      if(iteraciciones != 0 and iteraciciones >0):
+         boton1 = Button(centro_Cursos,width="19",height="9")
+         boton1.place(x=100,y=50)
 
+      iteraciciones= iteraciciones - 1 
+      if(iteraciciones != 0 and iteraciciones >0):
+         boton2 = Button(centro_Cursos,width="19",height="9")
+         boton2.place(x=300,y=50)
 
+      iteraciciones= iteraciciones - 1 
+      if(iteraciciones != 0 and iteraciciones >0):   
+         boton3 = Button(centro_Cursos,width="19",height="9")
+         boton3.place(x=500,y=50)
+      iteraciciones= iteraciciones - 1 
+      if(iteraciciones != 0 and iteraciciones >0):   
+         boton4 = Button(centro_Cursos,width="19",height="9")
+         boton4.place(x=100,y=230)
+      iteraciciones= iteraciciones - 1 
+      if(iteraciciones != 0 and iteraciciones >0):   
+         boton5 = Button(centro_Cursos,width="19",height="9")
+         boton5.place(x=300,y=230)
+      iteraciciones= iteraciciones - 1 
+      if(iteraciciones != 0 and iteraciciones >0):   
+         boton6 = Button(centro_Cursos,width="19",height="9")
+         boton6.place(x=500,y=230)
+    iterar(numero)
 
 
     menu.mainloop()
+
+Menu_principal()
 #-------------------------------------------------------------------------    
 
 def Menu_Profesores(clases):
