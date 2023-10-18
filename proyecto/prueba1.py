@@ -59,11 +59,11 @@ def menu():
         correo = Entry(recuperar_r,textvariable=correo_v)
         correo.place(x=150,y=200)
         def confirmar():
-            with open("texto3.txt","r")as f:
+            with open("texto.txt","r")as f:
                 a = len(f.readlines())
                 f.close()
                 valor = 0
-            with open("texto3.txt","r")as f2:    
+            with open("texto.txt","r")as f2:    
                 for x in range(a):
                     palabra = f2.readline()
                     sep = palabra.split('-')
@@ -352,18 +352,56 @@ def administracion():
             guardar.append(sep[4])
             guardar.append(sep[5])
             
-        
+    caja = Listbox(entorno)
+    caja2 = Listbox(entorno)   
 #---------------------------------------------------------------
     def llamar():
         pantalla4.destroy()
         menu_administrador.new_Curso()
 
     def  MaestrosRegistrados():
-        print("print registrar mestros")
+        with open("texto4.txt","r")as f3:
+            r = len(f3.readlines())
+            f3.close()
+            catedraticos = []
+            
+            
+        with open("texto4.txt","r")as f4:
+            for n in range(r):
+                palabra = f4.readline()
+                sep4 = palabra.split('-')
+                catedraticos.append(sep4[5])
+
+        with open("texto4.txt","r")as f5:
+            for x in range(r):
+             palabra2 = f5.readline()
+             sep5 = palabra2.split('-')
+             a = catedraticos.count(sep5[5])
+             print(catedraticos)
+             for s in range(a-1):
+              catedraticos.remove(sep5[5])
+
+        caja2.insert(0,*catedraticos)
+        caja2.place(relx=0.5,rely=0.6)
+        f4.close()
 
     def  verCursos():
-        hola = StringVar()
-        print(hola)
+        with open("texto4.txt","r")as f:
+            r = len(f.readlines())
+            f.close()
+            clases = []
+        with open("texto4.txt","r")as f2:
+            for n in range(r):
+                palabra = f2.readline()
+                sep3 = palabra.split('-')
+                clases.append(sep3[0])
+        caja.insert(0,*clases)
+        caja.place(relx=0.1,rely=0.6)
+        f2.close()      
+
+                
+
+        
     
         
                 

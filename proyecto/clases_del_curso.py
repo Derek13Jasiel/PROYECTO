@@ -1,5 +1,6 @@
 from tkinter import*
 from win32api import GetSystemMetrics
+
 #rom PIL import Image, ImageTk
 ancho = GetSystemMetrics(0)
 alto = GetSystemMetrics(1)
@@ -23,11 +24,15 @@ def nuevo_curso_(curso,codigo,horario,catedratico,Modo):
 
          nombre_delcurso = Label(curso_nuevo,text=curso,bg="white",width="30",height="3",font="Helvetica 30")
          nombre_delcurso.place(x= 330, y=50)
-         catedratico_del_curso = Label(curso_nuevo,text=catedratico,font="Helvetica 15")
-         catedratico_del_curso.place(x=330,y=180)
+         catedratico_del_curso = Label(curso_nuevo,text="Catedratico:  "+catedratico,font="Helvetica 15")
+         catedratico_del_curso.place(x=560,y=200)
          #-----------apartado de framelabel------------------------#
          cuadro_centrado = LabelFrame(curso_nuevo,text="Horario de "+  horario,font="30",width="950",height="450",relief=SUNKEN,bd=10)
          cuadro_centrado.place(x=200, y= 230)
+
+         
+ 
+            
    
  
          inicio = Button(curso_nuevo,text= "INICIO",background="light cyan",font="19")

@@ -22,10 +22,10 @@ def Menu_principal(usuario):
     menu.state('zoomed')#zoomed te deja centrado y pantalla completa
 
     def leer():
-      with open("texto3.txt","r")as saber_iterraciones:
+      with open("texto.txt","r")as saber_iterraciones:
          valor_de_filas = len(saber_iterraciones.readlines())
          saber_iterraciones.close()
-      with open("texto3.txt","r")as saber_iterraciones2:
+      with open("texto.txt","r")as saber_iterraciones2:
          
          global valor_iterraciones
          global clases_asignadas
@@ -149,12 +149,12 @@ def Menu_principal(usuario):
 ###########################################################3
          return None
       def asignarsef():
-         with open("texto3.txt","r")as fila:
+         with open("texto.txt","r")as fila:
             c = len(fila.readlines()) #numero de filas de el apartado de registro(texto.txt)
             print(c)
             datos = []#----------esta lista se almacenaran todos los datos de texto.txt
             fila.close()#codigo es para leer los archivos y reescribirlos (texto.txt) agregando los nuevos apartados
-         with open("texto3.txt","r")as fila2:
+         with open("texto.txt","r")as fila2:
 
             for n in range(c):
                      
@@ -205,7 +205,7 @@ def Menu_principal(usuario):
                      datos.append(sep2[13])  
                      datos.append(sep2[14])  
 
-         with open("texto3.txt","w")as f3:
+         with open("texto.txt","w")as f3:
             n = 0
             for x in range(c):
 
