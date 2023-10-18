@@ -8,12 +8,48 @@ el menú principal del estudiente y el menu
 principal del Menu princpal del maestro
 1) estudiante
 2)profesor"""
+global valor_iterraciones
+valor_iterraciones = 0
+global clases_asignadas
 
-def Menu_principal():
+
+def Menu_principal(usuario):
     menu = Tk()
     menu.title("Tablero")
     menu.iconbitmap("usac.ico")
     menu.state('zoomed')#zoomed te deja centrado y pantalla completa
+
+    def leer():
+      with open("texto3.txt","r")as saber_iterraciones:
+         valor_de_filas = len(saber_iterraciones.readlines())
+         saber_iterraciones.close()
+      with open("texto3.txt","r")as saber_iterraciones2:
+         
+         global valor_iterraciones
+         global clases_asignadas
+         clases_asignadas = []
+
+         for m in range(valor_de_filas):
+            palabra_d = saber_iterraciones2.readline()
+            separador = palabra_d.split('-')
+
+            if(usuario == separador[4]):
+               print(usuario+"     "+separador[4])
+               print(separador[8])
+               valor_iterraciones = int(separador[8])
+               clases_asignadas.append(separador[9])
+               clases_asignadas.append(separador[10])
+               clases_asignadas.append(separador[11])
+               clases_asignadas.append(separador[12])
+               clases_asignadas.append(separador[13])
+               clases_asignadas.append(separador[14])
+
+               print(valor_iterraciones)
+               print(clases_asignadas)
+
+      saber_iterraciones2.close()
+    leer()
+
     
     
 #----------imagen de fondo-----------#
@@ -33,47 +69,214 @@ def Menu_principal():
     centro_Cursos.place(relx=0.2,rely=0.35)
     #----------funcion crear asignarse nuevo curso-------------#
     def asignarse():
-      nuevo_curso_("Fisica3","hola","23:00 a 24:00")
+      root = Tk()  
+      root.title("Asignar Un Curso") 
+      root.geometry('380x380') 
+      root.iconbitmap("usac.ico")
+      root.resizable(0,0)
+      with open("texto4.txt","r")as f:
+         a = len(f.readlines())
+         f.close()
+         clases_disponibles = []
+         profesores_disponibles = []
+         horarios_disponible = []
+         costo_disponibles = []
+         codigo_disponibles = []
+      with open("texto4.txt","r")as f2:
+
+       for n in range(a):
+        fila = f2.readline()
+        sep = fila.split('-')
+        clases_disponibles.append(sep[0])
+        codigo_disponibles.append(sep[1])
+        costo_disponibles.append(sep[2])
+        horarios_disponible.append(sep[3])
+        profesores_disponibles.append(sep[5])
+      f2.close()
+      
+      seleccione = Label(root,text="Seleccione una clase")
+      seleccione.place(x=30,y=40)
+
+
+      valor = StringVar(root) 
+      valor.set("Cursos") 
+
+      menu_clases = OptionMenu(root, valor, *clases_disponibles) 
+      menu_clases.place(x=180,y=40)
+
+      informacion = LabelFrame(root,text="informacion del curso",width="330",height="200")
+      informacion.place(x=30,y=100)
+      
+      
+      def verinformacion(): 
+         #---obtenemos la posicion de el valor.get() y buscamos hoario y profesor en sus respectivas listas
+         b = clases_disponibles.index(valor.get())
+
+         profesores_variable =  profesores_disponibles[b]
+         codigo_variable = codigo_disponibles[b]
+         costo_variable = costo_disponibles[b]
+         horario_variable = horarios_disponible[b]
+
+         profesores = Label(informacion,text=profesores_variable,bg="red",width="14",anchor='w')
+         profesores.place(x=200,y=50)
+         horario = Label(informacion,text=horario_variable,bg="red",width="14")
+         horario.place(x=200,y=80)
+         codigo = Label(informacion,text=codigo_variable,bg="red",width="14")
+         codigo.place(x=200,y=110)
+         costo = Label(informacion,text=costo_variable,bg="red",width="14")
+         costo.place(x=200,y=140)
+###########################################################3
+         return None
+      def asignarsef():
+         with open("texto3.txt","r")as fila:
+            c = len(fila.readlines()) #numero de filas de el apartado de registro(texto.txt)
+            print(c)
+            datos = []#----------esta lista se almacenaran todos los datos de texto.txt
+            fila.close()#codigo es para leer los archivos y reescribirlos (texto.txt) agregando los nuevos apartados
+         with open("texto3.txt","r")as fila2:
+
+            for n in range(c):
+                     
+                  cadena = fila2.readline()
+                  sep2 = cadena.split('-')#14
+                  
+                  datos.append(sep2[0])
+                  datos.append(sep2[1])
+                  datos.append(sep2[2])
+                  datos.append(sep2[3])
+                  datos.append(sep2[4])#apartado de usuario
+                  datos.append(sep2[5])
+                  datos.append(sep2[6])
+                  datos.append(sep2[7])
+                  if (usuario==sep2[4]): #sirve para localizar al uzuario y incertar la nueva
+                     num = int(sep2[8])
+                     datos.append(str(num+1))
+                     if(num == 0):
+                      datos.append(valor.get())
+                     else:
+                      datos.append(sep2[9])
+                     if(num == 1):
+                      datos.append(valor.get())
+                     else:
+                      datos.append(sep2[10])    
+                     if(num == 2):
+                      datos.append(valor.get())
+                     else:
+                      datos.append(sep2[11])
+                     if(num == 3):
+                      datos.append(valor.get())
+                     else:
+                      datos.append(sep2[12])
+                     if(num == 4):
+                      datos.append(valor.get())
+                     else:
+                      datos.append(sep2[13])
+                     if(num == 5):
+                      datos.append(valor.get())
+                     else:
+                      datos.append(sep2[14]) 
+                  else:
+                     datos.append(sep2[8])
+                     datos.append(sep2[9])
+                     datos.append(sep2[10])
+                     datos.append(sep2[11])
+                     datos.append(sep2[12])
+                     datos.append(sep2[13])  
+                     datos.append(sep2[14])  
+
+         with open("texto3.txt","w")as f3:
+            n = 0
+            for x in range(c):
+
+               f3.write(datos[n+0]+"-"+datos[n+1]+"-"+datos[n+2]+"-"+datos[n+3]+"-"+datos[n+4]+"-"+datos[n+5]+"-"+datos[n+6]+"-"+datos[n+7]+"-"+datos[n+8]+"-"+datos[n+9]+"-"+datos[n+10]+"-"+datos[n+11]+"-"+datos[n+12]+"-"+datos[n+13]+"-"+datos[n+14]+"-"+"v"+"\n")
+               n = n + 15             
+         clases_disponibles.clear()
+         print(clases_asignadas)
+         leer()
+         iterar(num)
+         print(datos)
+      
+###############################################################         
+
+
+
+      asignarse = Button(root,text="Asignarse",command=asignarsef)#lla a la funcion para asignar un nuevo curso
+      asignarse.place(x=150,y= 320)
+
+      prueba = Label(informacion,textvariable=valor) 
+      prueba.place(x=200,y=20)
+
+      info = Label(informacion,text="curso:")
+      info.place(x=130,y=20)
+      info = Label(informacion,text="Catedratico:")
+      info.place(x=130,y=50)
+      info = Label(informacion,text="Horario:")
+      info.place(x=130,y=80)
+      info = Label(informacion,text="Codigo:")
+      info.place(x=130,y=110)
+      info = Label(informacion,text="Costo:")
+      info.place(x=130,y=140)
+
+
+      verInformacion = Button(informacion, text='ver informacion', command=verinformacion) 
+      verInformacion.place(x=20,y=120)
+
+
+
+      
+      root.mainloop() 
 
     #----------botones ------------------------#
 
+
     asignarCurso = Button(mostrar2, text="Asignarse a un curso",font=("Verdana",10),width="20",height="2",command=asignarse)
     asignarCurso.place(relx=0.87,rely=0.01)
+    def accion():
+       nuevo_curso_(clases_asignadas[0],"90","30")
+    def accion2():
+       nuevo_curso_(clases_asignadas[1],"90","30")
+    def accion3():
+       nuevo_curso_(clases_asignadas[2],"90","30")
+    def accion4():
+       nuevo_curso_(clases_asignadas[3],"90","30")  
+    def accion5():
+       nuevo_curso_(clases_asignadas[4],"90","30")  
+    def accion6():
+       nuevo_curso_(clases_asignadas[5],"90","30")         
     
-    numero = 3#simula el numero de clases asignadas
+    #simula el numero de clases asignadas
     def iterar(iteraciciones):
       
       if(iteraciciones != 0 and iteraciciones >0):
-         boton1 = Button(centro_Cursos,width="19",height="9")
+         boton1 = Button(centro_Cursos,width="19",height="9",text=clases_asignadas[0],command=accion)
          boton1.place(x=100,y=50)
-
       iteraciciones= iteraciciones - 1 
       if(iteraciciones != 0 and iteraciciones >0):
-         boton2 = Button(centro_Cursos,width="19",height="9")
+         boton2 = Button(centro_Cursos,width="19",height="9",text=clases_asignadas[1],command=accion2)
          boton2.place(x=300,y=50)
-
       iteraciciones= iteraciciones - 1 
       if(iteraciciones != 0 and iteraciciones >0):   
-         boton3 = Button(centro_Cursos,width="19",height="9")
+         boton3 = Button(centro_Cursos,width="19",height="9",text=clases_asignadas[2],command=accion3)
          boton3.place(x=500,y=50)
       iteraciciones= iteraciciones - 1 
       if(iteraciciones != 0 and iteraciciones >0):   
-         boton4 = Button(centro_Cursos,width="19",height="9")
+         boton4 = Button(centro_Cursos,width="19",height="9",text=clases_asignadas[3],command=accion4)
          boton4.place(x=100,y=230)
       iteraciciones= iteraciciones - 1 
       if(iteraciciones != 0 and iteraciciones >0):   
-         boton5 = Button(centro_Cursos,width="19",height="9")
+         boton5 = Button(centro_Cursos,width="19",height="9",text=clases_asignadas[4],command=accion5)
          boton5.place(x=300,y=230)
       iteraciciones= iteraciciones - 1 
       if(iteraciciones != 0 and iteraciciones >0):   
-         boton6 = Button(centro_Cursos,width="19",height="9")
+         boton6 = Button(centro_Cursos,width="19",height="9",text=clases_asignadas[5],command=accion6)
          boton6.place(x=500,y=230)
-    iterar(numero)
+    iterar(valor_iterraciones)
+    print(valor_iterraciones)
 
 
     menu.mainloop()
 
-Menu_principal()
+Menu_principal("jasiel13")
 #-------------------------------------------------------------------------    
 
 def Menu_Profesores(clases):

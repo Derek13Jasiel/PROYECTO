@@ -206,7 +206,7 @@ def nuevo_curso_(curso,codigo,horario):
                  pantalla.mainloop()
          
          crear_boton = Button(curso_nuevo, text="Nuevo apartado",background="light cyan",font="19",command=nuevo)
-         crear_boton.place_forget(x=1200,y=20)
+         crear_boton.place_forget()#x=1200,y=20   
          
          
          #-----------botones de informacion------------#
