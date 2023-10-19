@@ -17,7 +17,7 @@ def new_Curso(): # codigo para crear un nuevo curso
         curso.geometry("390x350")
         curso.title("crear nuevo curso")
         curso.resizable(0,0)
-        curso.iconbitmap("logo.ico")
+        curso.iconbitmap("C:/Users/Usuario/Desktop/proyecto/logo.ico")
 
         nombref = StringVar()
         codigof = StringVar()

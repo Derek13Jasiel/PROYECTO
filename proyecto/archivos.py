@@ -5,12 +5,12 @@
 
 #--------------verificar usuario----------------#text.txt
 def verificar(usuario,contra):
-   with open("texto.txt","r") as f:
+   with open("C:/Users/Usuario/Desktop/proyecto/texto.txt","r") as f:
     a = len(f.readlines())
     
    f.close()    
 
-   f = open("texto.txt","r",encoding="utf-8")  
+   f = open("C:/Users/Usuario/Desktop/proyecto/texto.txt","r",encoding="utf-8")  
    valor2 = ""
    valor3 = ""
    for n in range(a):
@@ -37,13 +37,13 @@ def verificar(usuario,contra):
 def verificarPro(usuariop,contrap): #funcion para verificar a los maestro en el login para catedraticos
    
   
-   f2 = open("texto2.txt","r",encoding="utf-8")
+   f2 = open("C:/Users/Usuario/Desktop/proyecto/texto2.txt","r",encoding="utf-8")
    a = len(f2.readlines())
    f2.close()
    valor2 = ""
    valor3 = ""
 
-   f2_v = open("texto2.txt","r",encoding="utf-8")
+   f2_v = open("C:/Users/Usuario/Desktop/proyecto/texto2.txt","r",encoding="utf-8")
    for n in range(a):
        
        datos = f2_v.readline()
@@ -75,14 +75,14 @@ def verificarPro(usuariop,contrap): #funcion para verificar a los maestro en el 
 def valid_registro(nombre,apellido,dpi,celular,usuario,correo,fecha,contra,contra2): #funcion para registrar los datos ingresados en el apartado de registro
    if(contra == contra2):
       
-      with open("texto.txt","a")as f:
+      with open("C:/Users/Usuario/Desktop/proyecto/texto.txt","a")as f:
        f.write(nombre+"-"+apellido+"-"+dpi+"-"+celular+"-"+usuario+"-"+correo+"-"+fecha+"-"+contra+"-"+"0"+"-"+"0"+"-"+"0"+"-"+"0"+"-"+"0"+"-"+"0"+"-"+"v"+"\n")
        f.close()#cada estudiente puede ser asignadoa 6 cursos
 
 #-----------------registro de maestros-------------------------#texto2.txt
 def RegistroMaestros(nombre,apellido,dpi,contra,contra2): #funcion para registrar los datos ingresados en el apartado de registro
     if(contra == contra2):
-      with open("texto2.txt","a")as f2:
+      with open("C:/Users/Usuario/Desktop/proyecto/texto2.txt","a")as f2:
        f2.write(nombre+"-"+apellido+"-"+dpi+"-"+contra+"-"+"v"+"\n")
        f2.close()
 
@@ -90,7 +90,7 @@ def RegistroMaestros(nombre,apellido,dpi,contra,contra2): #funcion para registra
 
 def RegistroCurso(curso,codigo,costo,horario,cupo,catedratico): #funcion para registrar los cursos desde el modulo administrador
      
-      with open("texto4.txt","a")as f3:
+      with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","a")as f3:
 
        f3.write(curso+"-"+codigo+"-"+costo+"-"+horario+"-"+cupo+"-"+catedratico+"-"+"0"+"-"+"0"+"-"+"0"+"-"+"0"+"-"+"0"+"-"+"0"+"-"+"0"+"-"+"0"+"-"+"0"+"-"+"v"+"\n")
        f3.close()#cada curso puede tener 8 apartados diferentes y uno para especificarlos

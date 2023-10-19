@@ -10,7 +10,7 @@ def Registro():
     registro.geometry("250x300+550+200")
     registro.title("Inicio de secion para catedraticos ")
     registro.resizable(0,0)
-    registro.iconbitmap("usac.ico")
+    registro.iconbitmap("C:/Users/Usuario/Desktop/proyecto/usac.ico")
     #crear los label y botones de ingreso de datos
     nombre_v = StringVar()
     contra_v = StringVar()
@@ -46,11 +46,11 @@ def Registro():
 def Menu_principal(usuario,registro):#
     #------mandamos a ver los curso y si los el catedratico esta asigna
   registro
-  with open("texto4.txt","r") as f:
+  with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r") as f:
     a = len(f.readlines())
     
     f.close()
-    with open("texto4.txt","r")as f2:
+    with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f2:
      resultado= []
      for n in range(a):
        palabra = f2.readline()

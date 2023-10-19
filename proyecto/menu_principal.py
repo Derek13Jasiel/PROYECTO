@@ -18,14 +18,14 @@ global informacion
 def Menu_principal(usuario):
     menu = Tk()
     menu.title("Tablero")
-    menu.iconbitmap("usac.ico")
+    menu.iconbitmap("C:/Users/Usuario/Desktop/proyecto/usac.ico")
     menu.state('zoomed')#zoomed te deja centrado y pantalla completa
 
     def leer():
-      with open("texto.txt","r")as saber_iterraciones:
+      with open("C:/Users/Usuario/Desktop/proyecto/texto.txt","r")as saber_iterraciones:
          valor_de_filas = len(saber_iterraciones.readlines())
          saber_iterraciones.close()
-      with open("texto.txt","r")as saber_iterraciones2:
+      with open("C:/Users/Usuario/Desktop/proyecto/texto.txt","r")as saber_iterraciones2:
          
          global valor_iterraciones
          global clases_asignadas
@@ -49,13 +49,13 @@ def Menu_principal(usuario):
 
               # print(valor_iterraciones)
               # print(clases_asignadas)
-      with open("texto4.txt")as cl:
+      with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt")as cl:
          cl_s =  len(cl.readlines())
          cl.close()
       global informacion   
       informacion = []   
       
-      with open("texto4.txt")as cl2:
+      with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt")as cl2:
          for n in range(cl_s):
           palabra_i = cl2.readline()
           sep3 = palabra_i.split('-')
@@ -74,13 +74,13 @@ def Menu_principal(usuario):
     
     
 #----------imagen de fondo-----------#
-    img2= (Image.open("fondo1.png"))
+    img2= (Image.open("C:/Users/Usuario/Desktop/proyecto/fondo1.png"))
     imagen_reducida2= img2.resize((1365,700))
     nueva_imagen2= ImageTk.PhotoImage(imagen_reducida2)
     mostrar2 = Label(menu, image= nueva_imagen2)
     mostrar2.place(x=0,y=0)
  #-------------imagen de bienbenida-----------#   
-    img= (Image.open("bienbenido2.png"))
+    img= (Image.open("C:/Users/Usuario/Desktop/proyecto/bienbenido2.png"))
     imagen_reducida= img.resize((380,150))
     nueva_imagen= ImageTk.PhotoImage(imagen_reducida)
     mostrar = Label(mostrar2, image= nueva_imagen)
@@ -93,9 +93,9 @@ def Menu_principal(usuario):
       root = Tk()  
       root.title("Asignar Un Curso") 
       root.geometry('380x380') 
-      root.iconbitmap("usac.ico")
+      root.iconbitmap("C:/Users/Usuario/Desktop/proyecto/usac.ico")
       root.resizable(0,0)
-      with open("texto4.txt","r")as f:
+      with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f:
          a = len(f.readlines())
          f.close()
          clases_disponibles = []
@@ -103,7 +103,7 @@ def Menu_principal(usuario):
          horarios_disponible = []
          costo_disponibles = []
          codigo_disponibles = []
-      with open("texto4.txt","r")as f2:
+      with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f2:
 
        for n in range(a):
         fila = f2.readline()
@@ -149,12 +149,12 @@ def Menu_principal(usuario):
 ###########################################################3
          return None
       def asignarsef():
-         with open("texto.txt","r")as fila:
+         with open("C:/Users/Usuario/Desktop/proyecto/texto.txt","r")as fila:
             c = len(fila.readlines()) #numero de filas de el apartado de registro(texto.txt)
             print(c)
             datos = []#----------esta lista se almacenaran todos los datos de texto.txt
             fila.close()#codigo es para leer los archivos y reescribirlos (texto.txt) agregando los nuevos apartados
-         with open("texto.txt","r")as fila2:
+         with open("C:/Users/Usuario/Desktop/proyecto/texto.txt","r")as fila2:
 
             for n in range(c):
                      
@@ -205,7 +205,7 @@ def Menu_principal(usuario):
                      datos.append(sep2[13])  
                      datos.append(sep2[14])  
 
-         with open("texto.txt","w")as f3:
+         with open("C:/Users/Usuario/Desktop/proyecto/texto.txt","w")as f3:
             n = 0
             for x in range(c):
 
@@ -308,7 +308,7 @@ def Menu_Profesores(clases,catedratico):
     print(numero_clases)#numero de clases asignadas a un profesor
     menu2 = Tk()
     menu2.title("Apartado de profesores")
-    menu2.iconbitmap("usac.ico")
+    menu2.iconbitmap("C:/Users/Usuario/Desktop/proyecto/usac.ico")
     menu2.state('zoomed')#zoomed te deja centrado y pantalla completa
     print(clases)
     valor_agregado = 10 - numero_clases
@@ -317,13 +317,13 @@ def Menu_Profesores(clases,catedratico):
     
     
 #----------imagen de fondo-----------#
-    img2= (Image.open("FONDO.webp"))
+    img2= (Image.open("C:/Users/Usuario/Desktop/proyecto/FONDO.webp"))
     imagen_reducida2= img2.resize((1365,700))
     nueva_imagen2= ImageTk.PhotoImage(imagen_reducida2)
     mostrar2 = Label(menu2, image= nueva_imagen2)
     mostrar2.place(x=0,y=0)
  #-------------imagen de bienbenida-----------#   
-    img= (Image.open("bienbenido2.png"))
+    img= (Image.open("C:/Users/Usuario/Desktop/proyecto/bienbenido2.png"))
     imagen_reducida= img.resize((380,150))
     nueva_imagen= ImageTk.PhotoImage(imagen_reducida)
     mostrar = Label(mostrar2, image= nueva_imagen)
@@ -334,10 +334,10 @@ def Menu_Profesores(clases,catedratico):
 #-------funciones para los apartado de clases asignadas
     def accion0():
         #curso,codigo y horario
-        with open("texto4.txt","r")as f:
+        with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f:
            a = len(f.readlines())
            f.close()
-        with open("texto4.txt","r")as f2:
+        with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f2:
            for n in range(a):
               info = f2.readline()   
               sep0 = info.split('-')
@@ -347,10 +347,10 @@ def Menu_Profesores(clases,catedratico):
         nuevo_curso_(clases[0],"90",horario0,catedratico,"M")#llama a la funcion nuevo curso desde clases del cuso
     def accion1():
         #curso,codigo y horario
-        with open("texto4.txt","r")as f:
+        with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f:
            a = len(f.readlines())
            f.close()
-        with open("texto4.txt","r")as f2:
+        with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f2:
            for n in range(a):
               info = f2.readline()   
               sep0 = info.split('-')
@@ -360,10 +360,10 @@ def Menu_Profesores(clases,catedratico):
         nuevo_curso_(clases[1],"90",horario1,catedratico,"M")#llama a la funcion nuevo curso desde clases del cuso
     def accion2():
         #curso,codigo y horario
-        with open("texto4.txt","r")as f:
+        with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f:
            a = len(f.readlines())
            f.close()
-        with open("texto4.txt","r")as f2:
+        with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f2:
            for n in range(a):
               info = f2.readline()   
               sep0 = info.split('-')
@@ -373,10 +373,10 @@ def Menu_Profesores(clases,catedratico):
         nuevo_curso_(clases[2],"90",horario2,catedratico,"M")#llama a la funcion nuevo curso desde clases del cuso
     def accion3():
         #curso,codigo y horario
-        with open("texto4.txt","r")as f:
+        with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f:
            a = len(f.readlines())
            f.close()
-        with open("texto4.txt","r")as f2:
+        with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f2:
            for n in range(a):
               info = f2.readline()   
               sep0 = info.split('-')
@@ -386,10 +386,10 @@ def Menu_Profesores(clases,catedratico):
         nuevo_curso_(clases[3],"90",horario3,catedratico,"M")#llama a la funcion nuevo curso desde clases del cuso
     def accion4():
         #curso,codigo y horario
-        with open("texto4.txt","r")as f:
+        with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f:
            a = len(f.readlines())
            f.close()
-        with open("texto4.txt","r")as f2:
+        with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f2:
            for n in range(a):
               info = f2.readline()   
               sep0 = info.split('-')

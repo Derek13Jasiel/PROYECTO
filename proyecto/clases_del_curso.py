@@ -15,7 +15,7 @@ def nuevo_curso_(curso,codigo,horario,catedratico,Modo):
          
          curso_nuevo = Tk() 
          curso_nuevo.title(curso)
-         curso_nuevo.iconbitmap("usac.ico")
+         curso_nuevo.iconbitmap("C:/Users/Usuario/Desktop/proyecto/usac.ico")
          curso_nuevo.state('zoomed')#zoomed te deja centrado y pantalla completa
          
          #-----------------------------------------#
@@ -43,11 +43,11 @@ def nuevo_curso_(curso,codigo,horario,catedratico,Modo):
          numero_apartados = "0"
          datosapartados = []  
          def leerapartados(apartados_numero):
-          with open("texto4.txt","r")as f:
+          with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f:
             a = (len(f.readlines())) 
             
             f.close()
-            with open("texto4.txt","r")as leer:
+            with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as leer:
                for w in range(a):
                 lecutura = leer.readline()
                 separador = lecutura.split('-')
@@ -78,7 +78,7 @@ def nuevo_curso_(curso,codigo,horario,catedratico,Modo):
                  pantalla.geometry("360x370+600+200")
                  pantalla.title("Nuevo Apartado")
                  pantalla.resizable(0,0)
-                 pantalla.iconbitmap("usac.ico")
+                 pantalla.iconbitmap("C:/Users/Usuario/Desktop/proyecto/usac.ico")
                  
                  mensaje = LabelFrame(pantalla,text="Opciones de nuevo apartado",height="300",width="300")
                  mensaje.place(x=30,y=30)
@@ -91,12 +91,12 @@ def nuevo_curso_(curso,codigo,horario,catedratico,Modo):
                  
                  def apartado():
                   print("hola falta este apartado")
-                  with open("texto4.txt","r")as f:
+                  with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f:
                      a = len(f.readlines()) 
                      datos = []
                      f.close()
                      def apartado_previo():
-                        with open("texto4.txt","r")as f2:
+                        with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f2:
                            for n in range(a):
                               word = f2.readline()
                               sep = word.split('-')
@@ -115,7 +115,7 @@ def nuevo_curso_(curso,codigo,horario,catedratico,Modo):
                      salida = str(valor_apartado)
                      print(salida)
  #--------------------------esta parte modifica el valor de los apartados sep[6]------------------------
-                  with open("texto4.txt","r")as f2:
+                  with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f2:
                      for n in range(a):
                         word = f2.readline()
                         sep = word.split('-')
@@ -183,7 +183,7 @@ def nuevo_curso_(curso,codigo,horario,catedratico,Modo):
 
                   #----------------escribe nuevamente las lines de codigo con el valor modificado----------#       
                   print(datos)
-                  with open("texto4.txt","w")as f3:
+                  with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","w")as f3:
                      n = 0
                      for x in range(a):
 

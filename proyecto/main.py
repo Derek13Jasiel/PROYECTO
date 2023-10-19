@@ -1,7 +1,9 @@
 from tkinter import *
 from tkinter import messagebox
 from PIL import Image, ImageTk
+from tkinter import filedialog
 import menu_administrador
+from enviar_correo import enviar
 import validacion_profe as valid_p
 import archivos as valid
 from menu_principal import Menu_principal
@@ -19,7 +21,7 @@ def menu():
     raiz.title("Inicia de Ceción")
     raiz.geometry("350x400+500+150")
     raiz.resizable(0,0) #no se puede exapandir
-    img= (Image.open("usac.png"))
+    img= (Image.open("C:/Users/Usuario/Desktop/proyecto/usac.png"))
     imagen_reducida= img.resize((320,150))#comando para modificar los valores de altura y anchura de la imagen
     nueva_imagen= ImageTk.PhotoImage(imagen_reducida)
     mostrar = Label(raiz, image= nueva_imagen)
@@ -31,7 +33,7 @@ def menu():
         
 
     #raiz.config(bg="blue", cursor= "circle")#color y mouse
-    raiz.iconbitmap("logo.ico")
+    raiz.iconbitmap("C:/Users/Usuario/Desktop/proyecto/logo.ico")
 
     #crear labels de la Universidad
     #texto = Label(raiz,text="UNIVERSIDAD DE SAN CARLOS")
@@ -39,11 +41,49 @@ def menu():
     #texto2 = Label(raiz,text="DE GUATEMALA")
     #texto2.pack()
 
+    def recuperarf():
+        recuperar_r = Toplevel()
+        recuperar_r.geometry("350x400+500+150")
+        recuperar_r.resizable(0,0)
+        recuperar_r.iconbitmap("C:/Users/Usuario/Desktop/proyecto/usac.ico")
+        usuario_v = StringVar()
+        correo_v = StringVar()
+        mensaje = Label(recuperar_r,text="Ingrese Sus datos",font=("curier 18"))
+        mensaje.place(x=50,y=40)
+        mensaje = Label(recuperar_r,text="Usuario")
+        mensaje.place(x=20,y=140)
+        mensaje = Label(recuperar_r,text="correo electronico")
+        mensaje.place(x=20,y=200)
+        usuario = Entry(recuperar_r,textvariable=usuario_v)
+        usuario.place(x=150,y=140)
+        correo = Entry(recuperar_r,textvariable=correo_v)
+        correo.place(x=150,y=200)
+        def confirmar():
+            with open("C:/Users/Usuario/Desktop/proyecto/texto.txt","r")as f:
+                a = len(f.readlines())
+                f.close()
+                valor = 0
+            with open("C:/Users/Usuario/Desktop/proyecto/texto.txt","r")as f2:    
+                for x in range(a):
+                    palabra = f2.readline()
+                    sep = palabra.split('-')
+                    if (usuario.get()==sep[4]and correo.get()==sep[5]):
+                        enviar(usuario.get(),correo.get(),sep[7])
+                        valor = 1
+                        messagebox.showinfo("Recuperacion","Se le ha enviado su contraseña por su correo electronico")
+                if(valor != 1):
+                 messagebox.showerror("Hubo un Problema","El Usuario o el correo no coinciden o no estan registrados")
+        confirmar_boton = Button(recuperar_r,text="confirmar",command=confirmar)
+        confirmar_boton.place(x=130,y=250)
+
+
     #crear labels de ingreso de datos nombre y contraseña
     texto3 = Label(raiz,text="Nombre",font=("curier 10"), bd= 4)
     texto3.place(x = 30, y = 160)
     texto4 = Label(raiz,text="contraseña",font=("curier 10"), bd= 4)
     texto4.place(x = 30, y = 180)
+    recuperar = Button(raiz,text="recuperar mi contraseña",command=recuperarf)
+    recuperar.place(x=100,y=370)
 
     #crear entradas para nombre y contraseña
     entrada = Entry(raiz,textvariable=nombre)#nombre
@@ -55,7 +95,7 @@ def menu():
     #funciones
     #funcion validar administracion y validar usuarios
     def adminf():
-    
+        
         if nombre.get() == "admin" and  contraseña.get()== "1234": #verificacion del administrador
             administracion()
             
@@ -63,7 +103,8 @@ def menu():
            if(valid.verificar(nombre.get(),contraseña.get()) == 1) :
                #llama a la funcion verificar del modulo valid 
                 
-               inicio()
+               inicio(nombre.get())
+
            elif (valid.verificar(nombre.get(),contraseña.get()) != 1):
                messagebox.showerror("Hubo un problema","Usuario o contraseña incorrecta")
                   
@@ -71,10 +112,10 @@ def menu():
                
 
 
-    def inicio():
+    def inicio(usuario):
         raiz.destroy()#importante destruir los widgets antes de pasar a otro 
         
-        Menu_principal()#llama a la funcion menu principal desde el modulo de menu principal
+        Menu_principal(usuario)#llama a la funcion menu principal desde el modulo de menu principal
  
     
     #crear botones 
@@ -95,9 +136,10 @@ def menu():
 
 def registrarsef(): #CREA EL MUNU DE RISGISTRO
     pantalla2 = Toplevel()
-    pantalla2.geometry("400x400")
+    pantalla2.geometry("400x500+300+200")
     pantalla2.title("Registrarse")
     pantalla2.resizable(0,0)
+    pantalla2.iconbitmap("C:/Users/Usuario/Desktop/proyecto/usac.ico")
     #string vars para la entrada en registro
     vnombre = StringVar()
     vapellido = StringVar()
@@ -157,14 +199,73 @@ def registrarsef(): #CREA EL MUNU DE RISGISTRO
     contra2.place(x=50, y= 310)
     contra2= Entry(pantalla2,textvariable=vcontra2,show='*') 
     contra2.place(x=180 , y = 310)
+    def seleccionar():
+
+            global img_tk
+            pantalla2.filename = filedialog.askopenfilename(title="buscar imagenes")
+
+            #label1 = Label(pantalla2,text=pantalla2.filename)
+            #label1.pack()
+
+            img = Image.open(pantalla2.filename)
+            nueva = img.resize((100,100))
+            img_tk = ImageTk.PhotoImage(nueva)
+
+            label2 = Label(pantalla2,image = img_tk)
+            label2.place(x=180,y=340)
+
+
+
+
 
     def validar():#metodo llama a validar el registro 
-        valid.valid_registro(nombre.get(),apellido.get(),DPI.get(),celular.get(),usuario.get(),correo.get(),fecha.get(),contra.get(),contra2.get())
-        print(nombre.get() + apellido.get())
+        #se verifica el usuario y si este no se repite
+        valor_de_verificacion = 0
+        with open("C:/Users/Usuario/Desktop/proyecto/texto.txt","r")as ver:
+            a = len(ver.readlines())
+            ver.close()
+            print(a)
+        with open("C:/Users/Usuario/Desktop/proyecto/texto.txt","r")as ver2: 
+            for n in range(a):
+                 
+              palabra = ver2.readline()
+              sep = palabra.split('-')
+
+              if (usuario.get()==sep[4]):
+                  valor_de_verificacion = 1
+        ver2.close() 
+        if(nombre.get()!= "" and apellido.get()!="" and celular.get()!="" and usuario.get()!=""and fecha.get()!= ""and contra.get()!="" and contra2.get()!=""):
+
+            _contra_ = contra.get()       
+            if(contra.get()!=contra2.get()):
+                messagebox.showerror("Error ","Contraseñas no coinciden")
+                valor_de_verificacion = 2
+            elif(len(contra.get())<8):
+                messagebox.showerror("Error ","La contraseña es de 8 caracteres")
+                valor_de_verificacion = 2
+            elif(_contra_.islower()==True):
+                messagebox.showerror("Error ","La contraseña debe Tener Mayusculas")
+                valor_de_verificacion = 2
+            """ elif(_contra_.isdigit()==False):
+                messagebox.showerror("Error ","La contraseña debe Tener un Digito")
+                valor_de_verificacion = 2  """  
+
+                
+            if(valor_de_verificacion ==0):      
+                valid.valid_registro(nombre.get(),apellido.get(),DPI.get(),celular.get(),usuario.get(),correo.get(),fecha.get(),contra.get(),contra2.get())
+                print(nombre.get() + apellido.get())
+            elif(valor_de_verificacion == 1):
+                messagebox.showerror("Usuario No Valido","El Usuario  "+usuario.get()+"  Ya esta rigistrado")  
+        else:
+          messagebox.showerror("Error ","Todas las casillas deben estar completadas")        
+
+#------------boton para seleccionar la imagen y para validar el registro-----------
+    buscar = Button(pantalla2,text="Seleccione una foto",command=seleccionar)
+    buscar.place(x=50, y=380)    
 
     
     boton = Button(pantalla2, text= "confirmar",command=validar,font=("curier 10"))
-    boton.place(x= 180, y= 350)
+    boton.place(x= 180, y= 450)
 
 def maestrof():
     raiz.destroy()
@@ -177,7 +278,7 @@ def administracion():
     pantalla4 = Tk()
     pantalla4.geometry("400x400")
     pantalla4.title("Administracion ")
-    pantalla4.iconbitmap("logo.ico")
+    pantalla4.iconbitmap("C:/Users/Usuario/Desktop/proyecto/logo.ico")
     pantalla4.resizable(0,0)
     global va 
     va = 0
@@ -195,7 +296,7 @@ def administracion():
         pantalla4.destroy()
         pantalla5_registro = Tk()
         pantalla5_registro.geometry("300x300")
-        pantalla5_registro.iconbitmap("logo.ico")
+        pantalla5_registro.iconbitmap("C:/Users/Usuario/Desktop/proyecto/logo.ico")
         pantalla5_registro.title("registro de Maestros")
         
         pantalla5_registro.resizable(0,0)
@@ -236,11 +337,11 @@ def administracion():
         confirmar = Button(pantalla5_registro,text="Confirmar",command=registrar_M)
         confirmar.place(x= 100 , y = 180  )
 #-------------------------------------------------------------------
-    with open("texto4.txt","r")as f:#esto debe pasar a texto3
+    with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f:#esto debe pasar a texto3
         a = len(f.readlines())
         f.close()
         guardar = []
-        with open("texto4.txt","r")as f2:
+        with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f2:
          for n in range(a):
             linea = f2.readline()
             sep = linea.split('-')
@@ -251,18 +352,56 @@ def administracion():
             guardar.append(sep[4])
             guardar.append(sep[5])
             
-        
+    caja = Listbox(entorno)
+    caja2 = Listbox(entorno)   
 #---------------------------------------------------------------
     def llamar():
         pantalla4.destroy()
         menu_administrador.new_Curso()
 
     def  MaestrosRegistrados():
-        print("print registrar mestros")
+        with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f3:
+            r = len(f3.readlines())
+            f3.close()
+            catedraticos = []
+            
+            
+        with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f4:
+            for n in range(r):
+                palabra = f4.readline()
+                sep4 = palabra.split('-')
+                catedraticos.append(sep4[5])
+
+        with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f5:
+            for x in range(r):
+             palabra2 = f5.readline()
+             sep5 = palabra2.split('-')
+             a = catedraticos.count(sep5[5])
+             print(catedraticos)
+             for s in range(a-1):
+              catedraticos.remove(sep5[5])
+
+        caja2.insert(0,*catedraticos)
+        caja2.place(relx=0.5,rely=0.6)
+        f4.close()
 
     def  verCursos():
-        hola = StringVar()
-        print(hola)
+        with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f:
+            r = len(f.readlines())
+            f.close()
+            clases = []
+        with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f2:
+            for n in range(r):
+                palabra = f2.readline()
+                sep3 = palabra.split('-')
+                clases.append(sep3[0])
+        caja.insert(0,*clases)
+        caja.place(relx=0.1,rely=0.6)
+        f2.close()      
+
+                
+
+        
     
         
                 
@@ -273,7 +412,7 @@ def administracion():
         print("modificar")
         mod = Toplevel()
         mod.geometry("450x200")
-        mod.iconbitmap("logo.ico")
+        mod.iconbitmap("C:/Users/Usuario/Desktop/proyecto/logo.ico")
         mod.resizable(0,0)
         
         curso_v = StringVar()
@@ -318,47 +457,88 @@ def administracion():
                 otro = 0
             #----------------------------------------------------------#                
         def modificarf():
-            with open("texto4.txt","r")as f:
-                num = len(f.readlines())
-                f.close()
-                datosmodificados1 = []
-            with open("texto4.txt","r")as f2:
-                for n in range(num):
-                    word = f2.readline()
-                    sep1 = word.split('-')
-                    if (otro==(n+1)*6):#---------si otro es igual a  n*6  entonces agrega los valores en las entradas
-                        print(str(otro)+"--vr--"+str((n+1)*6))
-                        datosmodificados1.append(curso.get())
-                        datosmodificados1.append(costo.get())
-                        datosmodificados1.append(horario.get())
-                        datosmodificados1.append(codigo.get())
-                        datosmodificados1.append(cupo.get())
-                        datosmodificados1.append(catedratico.get())
-                    else:
-                        datosmodificados1.append(sep1[0])    
-                        datosmodificados1.append(sep1[1])
-                        datosmodificados1.append(sep1[2])
-                        datosmodificados1.append(sep1[3])
-                        datosmodificados1.append(sep1[4])
-                        datosmodificados1.append(sep1[5])
-                    datosmodificados1.append(sep1[6])
-                    datosmodificados1.append(sep1[7])
-                    datosmodificados1.append(sep1[8])
-                    datosmodificados1.append(sep1[9])
-                    datosmodificados1.append(sep1[10])
-                    datosmodificados1.append(sep1[11])
-                    datosmodificados1.append(sep1[12])
-                    datosmodificados1.append(sep1[13])
-                    datosmodificados1.append(sep1[14])
-                    
+            respuesta = messagebox.askyesno("Modificar", "¿Esta Seguro que desea Modificar?")
+            if (respuesta == True):
+                with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f:
+                    num = len(f.readlines())
+                    f.close()
+                    datosmodificados1 = []
+                with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f2:
+                    for n in range(num):
+                        word = f2.readline()
+                        sep1 = word.split('-')
+                        if (otro==(n+1)*6):#---------si otro es igual a  n*6  entonces agrega los valores en las entradas
+                            print(str(otro)+"--vr--"+str((n+1)*6))
+                            datosmodificados1.append(curso.get())
+                            datosmodificados1.append(costo.get())
+                            datosmodificados1.append(horario.get())
+                            datosmodificados1.append(codigo.get())
+                            datosmodificados1.append(cupo.get())
+                            datosmodificados1.append(catedratico.get())
+                        else:
+                            datosmodificados1.append(sep1[0])    
+                            datosmodificados1.append(sep1[1])
+                            datosmodificados1.append(sep1[2])
+                            datosmodificados1.append(sep1[3])
+                            datosmodificados1.append(sep1[4])
+                            datosmodificados1.append(sep1[5])
+                        datosmodificados1.append(sep1[6])
+                        datosmodificados1.append(sep1[7])
+                        datosmodificados1.append(sep1[8])
+                        datosmodificados1.append(sep1[9])
+                        datosmodificados1.append(sep1[10])
+                        datosmodificados1.append(sep1[11])
+                        datosmodificados1.append(sep1[12])
+                        datosmodificados1.append(sep1[13])
+                        datosmodificados1.append(sep1[14])
+                        
 
-                with open("texto4.txt","w")as f3:
-                    extra = 0
-                    for x in range(num):
+                    with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","w")as f3:
+                        extra = 0
+                        for x in range(num):
 
-                     f3.write(datosmodificados1[extra+0]+"-"+datosmodificados1[extra+1]+"-"+datosmodificados1[extra+2]+"-"+datosmodificados1[extra+3]+"-"+datosmodificados1[extra+4]+"-"+datosmodificados1[extra+5]+"-"+datosmodificados1[extra+6]+"-"+datosmodificados1[extra+7]+"-"+datosmodificados1[extra+8]+"-"+datosmodificados1[extra+9]+"-"+datosmodificados1[extra+10]+"-"+datosmodificados1[extra+11]+"-"+datosmodificados1[extra+12]+"-"+datosmodificados1[extra+13]+"-"+datosmodificados1[extra+14]+"-"+"v"+"\n")
-                     extra = extra + 15
+                         f3.write(datosmodificados1[extra+0]+"-"+datosmodificados1[extra+1]+"-"+datosmodificados1[extra+2]+"-"+datosmodificados1[extra+3]+"-"+datosmodificados1[extra+4]+"-"+datosmodificados1[extra+5]+"-"+datosmodificados1[extra+6]+"-"+datosmodificados1[extra+7]+"-"+datosmodificados1[extra+8]+"-"+datosmodificados1[extra+9]+"-"+datosmodificados1[extra+10]+"-"+datosmodificados1[extra+11]+"-"+datosmodificados1[extra+12]+"-"+datosmodificados1[extra+13]+"-"+datosmodificados1[extra+14]+"-"+"v"+"\n")
+                         extra = extra + 15
 
+        def eliminar():
+            respuesta2 = messagebox.askyesno("Eliminar", "¿Esta Seguro que desea Eliminar el Curso?")
+            if(respuesta2 == True):
+                with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f:
+                    num = len(f.readlines())
+                    f.close()
+                    datosmodificados1 = []
+                with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","r")as f2:
+                    for n in range(num):
+                        word = f2.readline()
+                        sep1 = word.split('-')
+                        if (otro==(n+1)*6):#---------si otro es igual a  n*6  entonces agrega los valores en las entradas
+                            print(str(otro)+"--vr--"+str((n+1)*6))
+                        else:
+                            datosmodificados1.append(sep1[0])    
+                            datosmodificados1.append(sep1[1])
+                            datosmodificados1.append(sep1[2])
+                            datosmodificados1.append(sep1[3])
+                            datosmodificados1.append(sep1[4])
+                            datosmodificados1.append(sep1[5])
+                            datosmodificados1.append(sep1[6])
+                            datosmodificados1.append(sep1[7])
+                            datosmodificados1.append(sep1[8])
+                            datosmodificados1.append(sep1[9])
+                            datosmodificados1.append(sep1[10])
+                            datosmodificados1.append(sep1[11])
+                            datosmodificados1.append(sep1[12])
+                            datosmodificados1.append(sep1[13])
+                            datosmodificados1.append(sep1[14])
+                        
+
+                    with open("C:/Users/Usuario/Desktop/proyecto/texto4.txt","w")as f3:
+                        extra = 0
+                        for x in range(num-1):
+
+                         f3.write(datosmodificados1[extra+0]+"-"+datosmodificados1[extra+1]+"-"+datosmodificados1[extra+2]+"-"+datosmodificados1[extra+3]+"-"+datosmodificados1[extra+4]+"-"+datosmodificados1[extra+5]+"-"+datosmodificados1[extra+6]+"-"+datosmodificados1[extra+7]+"-"+datosmodificados1[extra+8]+"-"+datosmodificados1[extra+9]+"-"+datosmodificados1[extra+10]+"-"+datosmodificados1[extra+11]+"-"+datosmodificados1[extra+12]+"-"+datosmodificados1[extra+13]+"-"+datosmodificados1[extra+14]+"-"+"v"+"\n")
+                         extra = extra + 15
+                siguiente()         
+        siguiente()             
 
                     
 
@@ -366,14 +546,13 @@ def administracion():
   
             
   #------------------------------------------------------------------------
-        botonsiguiente = Button(mod,text="siguiente",width="8",height="1",bg="blue",command=siguiente)
-        botonsiguiente.place(x=180,y=90)
+  
         botonmodificar = Button(mod,text="Modificar",width="10",height="2",bg="green",command=modificarf)
         botonmodificar.place(x=50,y=130)
-        botoneliminar = Button(mod,text="Eliminar",width="10",height="2",bg="red")
+        botoneliminar = Button(mod,text="Eliminar",width="10",height="2",bg="red",command=eliminar)
         botoneliminar.place(x=170,y=130)      
-        botonguardar = Button(mod,text="Guardar",width="10",height="2",bg="yellow")
-        botonguardar.place(x=300,y=130)
+        botonsiguiente = Button(mod,text="Siguiente",width="10",height="2",bg="yellow",command=siguiente)
+        botonsiguiente.place(x=300,y=130)
 
 
         
