@@ -76,7 +76,7 @@ def valid_registro(nombre,apellido,dpi,celular,usuario,correo,fecha,contra,contr
    if(contra == contra2):
       
       with open("C:/Users/Usuario/Desktop/proyecto/texto.txt","a")as f:
-       f.write(nombre+"-"+apellido+"-"+dpi+"-"+celular+"-"+usuario+"-"+correo+"-"+fecha+"-"+contra+"-"+"0"+"-"+"0"+"-"+"0"+"-"+"0"+"-"+"0"+"-"+"0"+"-"+"v"+"\n")
+       f.write(nombre+"-"+apellido+"-"+dpi+"-"+celular+"-"+usuario+"-"+correo+"-"+fecha+"-"+contra+"-"+"0"+"-"+"0"+"-"+"0"+"-"+"0"+"-"+"0"+"-"+"0"+"-"+"0"+"-"+"v"+"\n")
        f.close()#cada estudiente puede ser asignadoa 6 cursos
 
 #-----------------registro de maestros-------------------------#texto2.txt
